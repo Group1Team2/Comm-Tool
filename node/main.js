@@ -17,6 +17,10 @@ app.get('/', function(req, res) {
 	res.sendFile('index.html');
 });
 
+app.get('/online_users/', function(req, res) {
+
+});
+
 // Database test
 connection.connect();
 connection.query('select * from ChatUser;', function(err, rows, fields) {
