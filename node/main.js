@@ -13,13 +13,9 @@ var connection = mysql.createConnection({
 });
 
 // Routes (for API)
-app.get('/', function(req, res) {
-	res.sendFile('index.html');
-});
-
-app.get('/online_users/', function(req, res) {
-
-});
+// app.get('/', function(req, res) {
+// 	res.sendFile('index.html');
+// });
 
 // Database test
 connection.connect();

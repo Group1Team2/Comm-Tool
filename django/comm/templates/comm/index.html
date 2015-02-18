@@ -18,7 +18,7 @@
 </body>
 
 <script>
-  var socket = io();
+  var socket = io('http://192.168.1.138:3000');
  
   $('button#submitBtn').click(function(){
   	var msg_text = $('input#textArea').val();
