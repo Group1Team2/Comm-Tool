@@ -16,7 +16,6 @@ var connection = mysql.createConnection({
 // really should switch to a connection pool or something
 connection.connect();
 
-
 // Routes (for API)
 
 	// get the last 10 posts;

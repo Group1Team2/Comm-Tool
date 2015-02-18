@@ -18,14 +18,16 @@
 </body>
 
 <script>
-  var socket = io('http://192.168.1.138:3000');
+
+  var server_host = window.location.hostname;
+  var socket = io('http://' + server_host + ':3000');
  
   $('button#submitBtn').click(function(){
   	var msg_text = $('input#textArea').val();
   	socket.emit('msg', msg_text);
   });
 
-  $.getJSON('http://192.168.1.138:3000/old_data', function(json) {
+  $.getJSON('http://' + server_host + ':3000/old_data', function(json) {
     json.forEach(function(msg) {
       add_message(msg.message);
     });
