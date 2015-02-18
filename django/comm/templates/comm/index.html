@@ -25,10 +25,19 @@
   	socket.emit('msg', msg_text);
   });
 
-  socket.on('msg', function(msg){
-  	console.log(msg);
-  	$('div#chatBox').append(msg + '\n');
+  $.getJSON('http://192.168.1.138:3000/old_data', function(json) {
+    json.forEach(function(msg) {
+      add_message(msg.message);
+    });
   });
+
+  socket.on('msg', function(msg){
+  	add_message(msg);
+  });
+
+  function add_message(msg) {
+    $('div#chatBox').append(msg + '<br>');
+  }
 
 </script>
 
