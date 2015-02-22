@@ -17,4 +17,8 @@ class RoomSerializer(serializers.HyperlinkedModelSerializer):
 class MessageSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Message
-		fields = ('text', 'time', 'at_message')
+		fields = ('text', 'time', 'at_message', 'room', 'user')
+
+# class PaginatedMessageSerializer(serializers.PaginationSerializer):
+# 	class Meta:
+# 		object_serializer_class = MessageSerializer
