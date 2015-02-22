@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Chatting Room</title>
+    <style type="text/css">
+        .auto-style1 {
+            text-align: center;
+        }
+        .newStyle1 {
+            position: relative;
+        }
+        .newStyle5 {
+            position: relative;
+            border-style: solid;
+        }
+        .newStyle6 {
+            border: 5px solid #000000;
+        }
+        .newStyle7 {
+            position: absolute;
+            clip: rect(auto, auto, auto, 20px);
+        }
+        #TextArea1 {
+            height: 75px;
+            width: 831px;
+        }
+        #text {
+            width: 830px;
+            height: 91px;
+            margin-top: 25px;
+        }
+        .newStyle13 {
+            clip: rect(10px, auto, auto, auto);
+        }
+        #Text1 {
+            height: 95px;
+            width: 832px;
+            margin-top: 15px;
+        }
+        .newStyle14 {
+            background-color: #C0C0C0;
+        }
+    </style>
+    <script>
+       
+        function General() {
+            x = document.getElementById("userlist");
+            x.innerHTML = "All members here!";
+        } 
+        function team1() {
+            x = document.getElementById("userlist");
+            x.innerHTML = "team1 here!";
+        }
+        function team2() {
+            x = document.getElementById("userlist");
+            x.innerHTML = "team2 here!";
+        }
+        function team3() {
+            x = document.getElementById("userlist");
+            x.innerHTML = "team3 here!";
+        }
+        function display() {
+
+            var message = document.getElementById("text").value;
+            var para = document.createElement("p");
+            var node = document.createTextNode(message);
+            para.appendChild(node);
+            var element = document.getElementById("content");
+            element.appendChild(para);
+        }
+</script>
+
+    </head>
+    <body>
+    <div>
+        <div>
+            <h1 class="auto-style1">Chatting Room</h1>
+           <div style="padding: 20px; top: 90px; left: 100px; width: 800px; position: absolute; background-color: #FFFFFF; height: 37px;">
+            <button type="button" onclick="General()">General</button>
+            <button type="button" onclick="team1()">team 1</button>
+            <button type="button" onclick="team2()">team 2</button>
+            <button type="button" onclick="team3()">team 3</button>
+               <select name="options" style="height: 16px; margin-left: 25px;">
+                <option value="creategroup">Create a new team</option>
+                <option value="delete">Delete a team</option>
+           </select><input type="submit" value="Submit!" style="width: 84px">
+           
+             <form action="action_page.php">
+            &nbsp;&nbsp;
+          <!--here we should decide what page it should jump to -->
+          </form>
+         </div> 
+       </div>
+                <div id="content" style="padding: 20px; top: 169px; left: 99px; width: 800px; position: absolute; background-color: #999966; height: 246px">
+            <h2 class="center">
+                Chatting content
+            </h2>
+        </div>
+               <div id="userlist" style="padding: 20px; top: 169px; left: 941px; width: 200px; position: absolute; background-color: #3399FF; height: 246px">
+            <h2>
+                userlist:
+            </h2>
+            <p> here we should connect to the database to get the userlist.</p>
+            <ul>
+                <li>Oscar</li>
+                <li>Will</li>
+                <li>Sherry</li>
+                <li>Jenna</li>
+                <li>Jeuwl</li>
+            </ul>
+          
+        </div>
+    </div>
+     <div style="padding: 0px; top: 440px; left: 100px; width: 1084px; position: absolute; background-color: #FFFFFF; height: 155px">
+       <textarea id="text" cols="30" rows="5">
+
+</textarea>
+      <button onclick="display()" style="height: 40px; width: 109px">send</button>
+        
+    </div>
+
+
+
+
+</body>
+</html>

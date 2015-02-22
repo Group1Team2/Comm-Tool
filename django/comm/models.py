@@ -1,10 +1,10 @@
 from django.db import models
 
-# Create your models here.
 class User(models.Model):
 	name = models.CharField(max_length=50)
 	online = models.BooleanField(default=False)
 
+# Need to add user relationship for second iteration
 class Room(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.CharField(max_length=500)
