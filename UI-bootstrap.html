@@ -19,7 +19,7 @@
 				position: fixed;
 				bottom: 0;
 				padding-bottom: 10px;
-				padding-right: 10px;
+				padding-right: 15px;
 			}
 
 			div#message_search {
@@ -36,11 +36,27 @@
 				position: absolute;
 			}
 
-			div#message_list :nth-child(even){
+			.message:nth-of-type(odd)){
 			  background-color: #lightgray;
 			}
-			div#message_list :nth-child(odd){
-			  background-color: white;
+
+			.user {
+				height: 20px;
+				list-style-type: none;
+			}
+
+			.user_list {
+				padding: 10px;
+				color: inherit;
+			}
+
+			.message_list {
+				margin: 10px;
+			}
+
+			.disabled a {
+				color: gray;
+				text-decoration: none;
 			}
 
 		</style>
@@ -49,7 +65,7 @@
 	<body>
 		<div id="wrapper">
 
-			<div id="sidebar" class="col-xs-3">
+			<div id="sidebar" class="col-xs-3 col-lg-2">
 
 				<div id="message_search" class="input-group">
 				    <input type="text" class="form-control" placeholder="Search messages...">
@@ -75,8 +91,8 @@
 				  	Room Two
 				  </a>
 				  <a href="#" class="list-group-item">
-				  	<span class="glyphicon glyphicon-remove padded-icon" aria-hidden="true"></span>
-				  	Room Three
+				  	<span class="glyphicon glyphicon-search padded-icon" aria-hidden="true"></span>
+				  	Search Results
 				  </a>
 				  <a href="#" class="list-group-item">
 				  	<span class="glyphicon glyphicon-plus padded-icon" aria-hidden="true"></span>
@@ -84,27 +100,27 @@
 				  </a>
 				</div>
 
-				<ul class="nav nav-pills nav-stacked">
-				    <li><a href="#">
+				<ul class="user_list">
+				    <li class="user"><a href="#">
 				    	<span class="glyphicon glyphicon-user padded-icon"></span>Oscar</a>
 				    </li>
-				    <li><a href="#">
+				    <li class="user"><a href="#">
 				    	<span class="glyphicon glyphicon-user padded-icon"></span>Bill</a>
 				    </li>
-				    <li class="disabled"><a href="#">
-				    	<span class="glyphicon glyphicon-user padded-icon disabled"></span>Sherry</a>
+				    <li class="user disabled"><a href="#">
+				    	<span class="glyphicon glyphicon-user padded-icon"></span>Sherry</a>
 				    </li>
-				    <li class="disabled"><a href="#">
-				    	<span class="glyphicon glyphicon-user padded-icon disabled"></span>Jenna</a>
+				    <li class="user disabled"><a href="#">
+				    	<span class="glyphicon glyphicon-user padded-icon"></span>Jenna</a>
 				    </li>
-				    <li class="disabled"><a href="#">
-				    	<span class="glyphicon glyphicon-user padded-icon disabled"></span>Jewel</a>
+				    <li class="user disabled"><a href="#">
+				    	<span class="glyphicon glyphicon-user padded-icon"></span>Jewel</a>
 				    </li>
 				</ul>
 
 			</div>	
 
-			<div id="messages" class="col-xs-9 col-xs-offset-3">
+			<div id="messages" class="col-xs-9 col-xs-offset-3 col-lg-10 col-lg-offset-2">
 				<div id="message_bar">
 					<div class="input-group">
 					    <input type="text" class="form-control" placeholder="Enter a message...">
@@ -117,11 +133,11 @@
 				</div>
 
 				<div id="message_list">
-					<div><strong>Oscar</strong>: Hi Everyone</div>
-					<div><strong>Bill</strong>: Hi Oscar!</div>
-					<div><strong>Bill</strong>: I like this chat app</div>
-					<div><strong>Oscar</strong>: Yeah, it's awesome</div>
-					<div><strong>Oscar</strong>: It's kind of like slack, but way better</div>
+					<div class="message"><strong>Oscar:</strong> Hi Everyone</div>
+					<div class="message"><strong>Bill:</strong> Hi Oscar!</div>
+					<div class="message"><strong>Bill:</strong> I like this chat app</div>
+					<div class="message"><strong>Oscar:</strong> Yeah, it's awesome</div>
+					<div class="message"><strong>Oscar:</strong> It's kind of like slack, but way better</div>
 				</div>
 
 			</div>
