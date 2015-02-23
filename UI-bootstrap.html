@@ -11,7 +11,7 @@
 
 		<style type="text/css">
 
-			.spacer {
+			div#wrapper {
 				padding-top: 10px;
 			}
 
@@ -19,25 +19,39 @@
 				position: fixed;
 				bottom: 0;
 				padding-bottom: 10px;
+				padding-right: 10px;
 			}
 
 			div#message_search {
-				padding-bottom: 10px;
+				padding-bottom: 30px;
 			}
 
 			.padded-icon {
 				padding-right: 10px;
 			}
 
+			div#sidebar {
+				height: 98%;
+				border-right: 1px solid lightgray;
+				position: absolute;
+			}
+
+			div#message_list :nth-child(even){
+			  background-color: #lightgray;
+			}
+			div#message_list :nth-child(odd){
+			  background-color: white;
+			}
+
 		</style>
 
 	</head>
 	<body>
-		<div id="wrapper" class="spacer">
+		<div id="wrapper">
 
-			<div id="rooms" class="col-xs-3">
+			<div id="sidebar" class="col-xs-3">
 
-			<div id="message_search" class="input-group">
+				<div id="message_search" class="input-group">
 				    <input type="text" class="form-control" placeholder="Search messages...">
 				    <span class="input-group-btn">
 				        <button class="btn btn-default" type="button">
@@ -70,13 +84,6 @@
 				  </a>
 				</div>
 
-			</div>	
-
-			<div id="messages" class="col-xs-7">
-				<strong>Oscar</strong>: Hi Everyone
-			</div>
-
-			<div id="users" class="col-xs-2">
 				<ul class="nav nav-pills nav-stacked">
 				    <li><a href="#">
 				    	<span class="glyphicon glyphicon-user padded-icon"></span>Oscar</a>
@@ -84,28 +91,39 @@
 				    <li><a href="#">
 				    	<span class="glyphicon glyphicon-user padded-icon"></span>Bill</a>
 				    </li>
-				    <li><a href="#">
-				    	<span class="glyphicon glyphicon-user padded-icon"></span>Sherry</a>
+				    <li class="disabled"><a href="#">
+				    	<span class="glyphicon glyphicon-user padded-icon disabled"></span>Sherry</a>
 				    </li>
-				    <li><a href="#">
-				    	<span class="glyphicon glyphicon-user padded-icon"></span>Jenna</a>
+				    <li class="disabled"><a href="#">
+				    	<span class="glyphicon glyphicon-user padded-icon disabled"></span>Jenna</a>
 				    </li>
-				    <li><a href="#">
-				    	<span class="glyphicon glyphicon-user padded-icon"></span>Jewel</a>
+				    <li class="disabled"><a href="#">
+				    	<span class="glyphicon glyphicon-user padded-icon disabled"></span>Jewel</a>
 				    </li>
 				</ul>
-			</div>
 
-		</div>
+			</div>	
 
-		<div id="message_bar" class="col-xs-12">
-			<div class="input-group">
-			    <input type="text" class="form-control" placeholder="Enter a message...">
-			    <span class="input-group-btn">
-			        <button class="btn btn-default" type="button">
-			        	<span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>
-			        </button>
-			    </span>
+			<div id="messages" class="col-xs-9 col-xs-offset-3">
+				<div id="message_bar">
+					<div class="input-group">
+					    <input type="text" class="form-control" placeholder="Enter a message...">
+					    <span class="input-group-btn">
+					        <button class="btn btn-default" type="button">
+					        	<span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+					        </button>
+					    </span>
+					</div>
+				</div>
+
+				<div id="message_list">
+					<div><strong>Oscar</strong>: Hi Everyone</div>
+					<div><strong>Bill</strong>: Hi Oscar!</div>
+					<div><strong>Bill</strong>: I like this chat app</div>
+					<div><strong>Oscar</strong>: Yeah, it's awesome</div>
+					<div><strong>Oscar</strong>: It's kind of like slack, but way better</div>
+				</div>
+
 			</div>
 
 		</div>
