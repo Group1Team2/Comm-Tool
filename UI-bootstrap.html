@@ -2,21 +2,85 @@
 <html>
 	<head>
 		<title>Chatting Room</title>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.4/socket.io.min.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css">
+
+		<style type="text/css">
+
+			.spacer {
+				padding-top: 10px;
+			}
+
+			div#message_bar {
+				position: fixed;
+				bottom: 0;
+				padding-bottom: 10px;
+			}
+
+			div#message_user_wrapper {
+				padding-top: 50px;
+			}
+
+		</style>
+
 	</head>
 	<body>
-		<div>
-			<button>General</button>
-			<button>Room 1</button>
-			<button>Room 2</button>
-			<button>Room 3</button>
-		</div>
-		<div>
-			<div width='60%'>
-				Chatting content				
+		<div id="wrapper" class="spacer">
+
+			<div id="rooms_list" class="col-xs-8">
+				<button type="button" class="btn btn-primary">
+					Awesome Room
+				</button>
+				<button type="button" class="btn btn-default">
+					Another Room
+					<span class="badge">1</span>
+				</button>
+				<button type="button" class="btn btn-default">
+					General Room
+				</button>
 			</div>
-			<div width='40%'>
-				userList
+			<div id="message_search" class="col-xs-4">
+				<div class="input-group">
+				    <input type="text" class="form-control" placeholder="Search messages...">
+				    <span class="input-group-btn">
+				        <button class="btn btn-default" type="button">
+				        	<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				        </button>
+				    </span>
+				</div>
 			</div>
+
+			<div id="message_user_wrapper">
+				<div id="messages" class="col-xs-9">
+					<strong>Oscar</strong>: Hi Everyone
+				</div>
+				<div id="users" class="col-xs-3">
+					<ul>
+						<li>Oscar</li>
+						<li>Bill</li>
+						<li>Sherry</li>
+						<li>Jenna</li>
+						<li>Jewel</li>
+					</ul>
+				</div>
+			</div>
+
+			<div id="message_bar" class="col-xs-12">
+				<div class="input-group">
+				    <input type="text" class="form-control" placeholder="Enter a message...">
+				    <span class="input-group-btn">
+				        <button class="btn btn-default" type="button">
+				        	<span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>
+				        </button>
+				    </span>
+				</div>
+			</div>
+
 		</div>
+
 	</body>
 </html>
