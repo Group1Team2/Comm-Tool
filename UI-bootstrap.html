@@ -34,8 +34,10 @@
 				height: 98%;
 				border-right: 1px solid lightgray;
 				position: absolute;
-			}
+/*				background-color: aliceblue;
+*/			}
 
+			/* WHY DOESN'T THIS WORK? */
 			.message:nth-of-type(odd)){
 			  background-color: #lightgray;
 			}
@@ -49,8 +51,12 @@
 				padding-left: 15px;
 			}
 
-			.message_list {
+			div#message_list {
 				margin: 10px;
+			}
+
+			div.message {
+				padding-top: 5px;
 			}
 
 			.disabled a {
@@ -130,14 +136,21 @@
 
 			<div id="messages" class="col-xs-9 col-xs-offset-3 col-lg-10 col-lg-offset-2">
 				<div id="message_bar">
-					<div class="input-group">
+					<div class="input-group input-group-lg">
 					    <input type="text" class="form-control" placeholder="Enter a message...">
 					    <span class="input-group-btn">
 					        <button class="btn btn-default" type="button">
-					        	<span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+					        	<span class="glyphicon glyphicon-expand" aria-hidden="true"></span>
 					        </button>
 					    </span>
 					</div>
+				</div>
+
+				<!-- TODO: remove ugly in-line CSS -->
+				<div style="border-bottom: 1px solid lightgray;">
+					<span class="glyphicon glyphicon-comment padded-icon" style="font-size: 40px; color: gray;" aria-hidden="true"></span>
+					<span style="font-size: 40px; bottom: 8px; left: 10px; font-weight: bold; position: relative; color: gray;">General</span>
+					<span style="position: absolute; right: 0; padding-right: 20px; top: 8px; font-size: 30px; color: gray;" class="glyphicon glyphicon-menu-hamburger"></span>
 				</div>
 
 				<div id="message_list">
