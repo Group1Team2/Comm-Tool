@@ -1,48 +1,291 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
-	<title>It works?</title>
+<title>Communication tool</title>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.4/socket.io.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.4/socket.io.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<!-- <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+ -->
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+ -->
+<style type="text/css">
+         
+div#wrapper {
+padding-top: 10px;
+background-color: #337ab7;
+}
+
+div#message_bar {
+position: fixed;
+bottom: 0;
+padding-bottom: 10px;
+padding-right: 15px;
+background-color: aliceblue;
+}
+
+div#message_search {
+padding-bottom: 15px;
+}
+
+.padded-icon {
+padding-right: 10px;
+}
+
+div#sidebar {
+height: 98%;
+border-right: 1px solid lightgray;
+position: absolute;
+background-color: aliceblue;
+}
+
+/* WHY DOESN'T THIS WORK? */
+.message:nth-of-type(odd)){
+ background-color: #lightgray;
+}
+
+.user {
+height: 20px;
+list-style-type: none;
+}
+            .link {
+height: 20px;
+list-style-type: none;
+}
+.user_list {
+padding-left: 15px;
+}
+.link_list {
+padding-left: 15px;
+}
+
+div#message_list {
+margin: 10px;
+
+}
+
+div.message {
+padding-top: 5px;
+
+
+}
+
+.disabled a {
+color: gray;
+text-decoration: none;
+}
+
+.sidebar_description {
+text-align: center;
+padding-bottom: 5px;
+padding-top:5px;
+background-color: #5bc0de;
+}
+.scroll-area {
+       height: 90%;
+       position: relative;
+       overflow: auto;
+            }
+
+</style>
 
 </head>
 <body>
+<div id="wrapper">
 
-<input id="textArea" type="text" size="40"><button id="submitBtn">Submit!</button>
+<div id="sidebar" class="col-xs-3 col-lg-2">
 
-<div id="chatBox">
-	<h1>Chat goes here!</h1>
+            <h4 class="sidebar_description">Chatting Room</h4>
+
+<div class="list-group">
+ <a href="#" class="list-group-item active">
+ 	<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+ 	General
+ </a>
+ <a href="#" class="list-group-item">
+ 	<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+ 	Team One
+ 	<span class="badge">4</span>
+ </a>
+ <a href="#" class="list-group-item">
+ 	<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+ 	Team Two
+ </a>
+ <a href="#" class="list-group-item">
+ 	<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+ 	Team three
+ </a>
+ <a href="#" class="list-group-item">
+ 	<span class="glyphicon glyphicon-plus padded-icon" aria-hidden="true"></span>
+ 	Create New Teams
+ </a>
+</div>
+
+<h4 class="sidebar_description">Users</h4>
+
+<ul class="user_list">
+   <li class="user"><a href="#">
+   	<span class="glyphicon glyphicon-user padded-icon"></span>Oscar</a>
+   </li>
+   <li class="user"><a href="#">
+   	<span class="glyphicon glyphicon-user padded-icon"></span>Bill</a>
+   </li>
+   <li class="user disabled"><a href="#">
+   	<span class="glyphicon glyphicon-user padded-icon"></span>Sherry</a>
+   </li>
+   <li class="user disabled"><a href="#">
+   	<span class="glyphicon glyphicon-user padded-icon"></span>Jenna</a>
+   </li>
+   <li class="user disabled"><a href="#">
+   	<span class="glyphicon glyphicon-user padded-icon"></span>Jewel</a>
+   </li>
+</ul>
+                 <h4 class="sidebar_description">Quick link to</h4>
+
+<ul class="link_list">
+   <li class="link"><a href="#">
+   	<span class="glyphicon glyphicon-book"></span>Requirement Management Tool</a>
+   </li>
+   <br />
+    <li class="user"><a href="#">
+   	<span class="glyphicon glyphicon-check"></span>Issue Management Tool</a>
+   </li>
+</div>	
+
+
+<div id="messages" class="col-xs-9 col-xs-offset-3 col-lg-10 col-lg-offset-2">
+<div id="message_bar">
+<div class="input-group input-group-lg">
+<input id="text" type="text" class="form-control" placeholder="Enter a message..."> 
+ 
+                         <script type="text/javascript" src="http://keleyi.com/keleyi/pmedia/jquery-1.9.1.min.js"></script>
+                        <!-- <textarea id="text" cols="30" rows="5"></textarea> -->
+                         <!--<button onclick="display()" id="sendcleartext" style="height: 40px; width: 109px">send</button>
+                         <br /> -->
+                        
+   <span class="input-group-btn">
+       <button id="sendcleartext" class="btn btn-default" type="button" onclick="display()" >
+       	<span class="glyphicon glyphicon-expand" aria-hidden="true"></span>
+       </button>
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      <span class="glyphicon glyphicon-plus-sign"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li><a href="#">upload file</a></li>
+      <li><a href="#">emoticons</a></li>
+    </ul>
+
+    <script type="text/javascript">
+                         $("#sendcleartext").click(function () {
+                         $("#text").val('');
+                         })
+                        </script>
+   </span>
+</div>
+</div>
+
+
+
+
+<!-- TODO: remove ugly in-line CSS -->
+<div style="border-bottom: 1px solid lightgray;">
+<span class="glyphicon glyphicon-comment padded-icon" style="font-size: 40px; color: gray;" aria-hidden="true"></span>
+<span style="font-size: 40px; bottom: 8px; left: 10px; font-weight: bold; position: relative; color: gray;">General</span>
+<!-- -->
+               
+<div class="dropdown" style="position: absolute; right: 5px; padding-right: 20px; top: 8px; font-size: 30px; color: gray;" >
+   <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" 
+      data-toggle="dropdown">
+      Options
+      <span class="caret"></span>
+   </button>
+   <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="#">Team Profile</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="#">File Sharing</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="#">
+            Post
+         </a>
+      </li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="#">Help</a>
+      </li>
+   </ul>
+</div>
+
+<!--<span style="position: absolute; right: 0; padding-right: 20px; top: 8px; font-size: 30px; color: gray;" class="glyphicon glyphicon-menu-hamburger"></span> -->
+
+</div>
+
+<div class="scroll-area" data-spy="scroll" data-target="#myNavbar" data-offset="0">
+<div id="message_list">
+<div id="message_search" class="input-group">
+   <input type="text" class="form-control" placeholder="Search messages...">
+   <span class="input-group-btn">
+       <button class="btn btn-default" type="button">
+       	<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+       </button>
+   </span>
+</div>
+<div id="messagecontent">
+<!-- <div class="message"><strong>Oscar:</strong> Hi Everyone</div>
+ -->
+</div>
+           </div>
+</div>
+
 </div>
 
 </body>
 
 <script>
 
-  $.getJSON('http://192.168.1.138:8000/api/messages/?format=json', function(json) {
-    console.log(json);
-  });
-
   var server_host = window.location.hostname;
+
   var socket = io('http://' + server_host + ':3000');
- 
-  $('button#submitBtn').click(function(){
-  	var msg_text = $('input#textArea').val();
-  	socket.emit('msg', msg_text);
-  });
 
-  $.getJSON('http://' + server_host + ':3000/old_data', function(json) {
-    json.forEach(function(msg) {
-      add_message(msg.message);
+  var username = random_user();
+
+  // Get the messages from the API and add to the page
+  $.getJSON('http://' + server_host + ':8000/api/messages/?format=json', function(json) {
+
+    json.results.forEach(function(msg){
+      add_message(msg.text);
     });
+
   });
 
+  // When you receive a message, add it to the page
   socket.on('msg', function(msg){
-  	add_message(msg);
+    add_message(msg);
   });
 
   function add_message(msg) {
-    $('div#chatBox').append(msg + '<br>');
+    $('div#messagecontent').append(msg + '<br>');
+  }
+
+  // Called when button is clicked
+  function display() {
+    var message = username + " : " + document.getElementById("text").value;
+    socket.emit('msg', message);
+  }
+
+  // Generate random user
+  function random_user() {
+    var random_index = Math.floor( Math.random() * 100 ) + 1;
+    return "User " + random_index;
   }
 
 </script>
