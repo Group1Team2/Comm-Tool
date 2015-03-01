@@ -3,10 +3,6 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-
-// really should switch to a connection pool or something
-connection.connect();
-
 // WebSocket stuff
 io.on('connection', function(socket) {
 	console.log('user connected!');	
