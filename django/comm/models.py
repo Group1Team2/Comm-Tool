@@ -27,7 +27,7 @@ class Room(models.Model):
 class Message(models.Model):
 
 	def __str__(self):
-		return '%s - %s' % (self.user, self.name)
+		return '%s - %s' % (self.user, self.text)
 
 	text = models.TextField()
 	time = models.DateTimeField(auto_now=True)
