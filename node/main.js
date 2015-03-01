@@ -2,6 +2,22 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var Client = require('node-rest-client').Client;
+
+var client = new Client();
+
+var msg_endpoint = 'http://localhost:8000/api/messages/'
+
+var message_template = {
+
+	"data": {
+		"at_message": false, 
+		"room": "http://192.168.1.146:8000/api/rooms/1/", 
+		"user": "http://192.168.1.146:8000/api/users/1/"
+	},
+
+	"headers": { "Content-Type": "application/json" }   
+}
 
 // WebSocket stuff
 io.on('connection', function(socket) {
@@ -12,8 +28,9 @@ io.on('connection', function(socket) {
 	});
 
 	socket.on('msg', function(msg) {
-		console.log(msg);
 		io.emit('msg', msg);
+		message_template.data.text = msg;
+		client.post(msg_endpoint, message_template, function(data,response) { console.log(msg) });
 	});
 
 });
