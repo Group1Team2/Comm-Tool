@@ -8,27 +8,25 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-<!-- <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
- -->
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
- -->
+
 <style type="text/css">
          
 div#wrapper {
 padding-top: 10px;
-background-color: #337ab7;
-}
+/*background-color: #337ab7;
+*/}
 
 div#message_bar {
 position: fixed;
 bottom: 0;
 padding-bottom: 10px;
 padding-right: 15px;
-background-color: aliceblue;
+padding-top: 10px;
+z-index: 9999;
+background-color: white;
 }
 
 div#message_search {
@@ -42,7 +40,7 @@ padding-right: 10px;
 div#sidebar {
 height: 98%;
 border-right: 1px solid lightgray;
-position: absolute;
+position: fixed;
 background-color: aliceblue;
 }
 
@@ -94,11 +92,25 @@ background-color: #5bc0de;
        overflow: auto;
             }
 
+div#top_bar {
+  position: fixed;
+  background-color: white;
+  z-index: 10000;
+
+}
+
+div#messagecontent {
+  padding-top: 110px;
+}
+
 </style>
 
 </head>
 <body>
 <div id="wrapper">
+
+<div id="color_bar" style="position: fixed; top: 0px; height: 10px; width: 100%; background-color: #337ab7;">
+</div>
 
 <div id="sidebar" class="col-xs-3 col-lg-2">
 
@@ -151,97 +163,82 @@ background-color: #5bc0de;
 
 <ul class="link_list">
    <li class="link"><a href="#">
-   	<span class="glyphicon glyphicon-book"></span>Requirement Management Tool</a>
+   	<span class="glyphicon glyphicon-book padded-icon"></span>Requirement Management Tool</a>
    </li>
    <br />
     <li class="user"><a href="#">
-   	<span class="glyphicon glyphicon-check"></span>Issue Management Tool</a>
+   	<span class="glyphicon glyphicon-check padded-icon"></span>Issue Management Tool</a>
    </li>
 </div>	
 
 
 <div id="messages" class="col-xs-9 col-xs-offset-3 col-lg-10 col-lg-offset-2">
 <div id="message_bar">
-<div class="input-group input-group-lg">
-<input id="text" type="text" class="form-control" placeholder="Enter a message..."> 
- 
-                         <script type="text/javascript" src="http://keleyi.com/keleyi/pmedia/jquery-1.9.1.min.js"></script>
-                        <!-- <textarea id="text" cols="30" rows="5"></textarea> -->
-                         <!--<button onclick="display()" id="sendcleartext" style="height: 40px; width: 109px">send</button>
-                         <br /> -->
-                        
-   <span class="input-group-btn">
-       <button id="sendcleartext" class="btn btn-default" type="button" onclick="display()" >
-       	<span class="glyphicon glyphicon-expand" aria-hidden="true"></span>
-       </button>
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-      <span class="glyphicon glyphicon-plus-sign"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-      <li><a href="#">upload file</a></li>
-      <li><a href="#">emoticons</a></li>
-    </ul>
+  <div class="input-group input-group-lg">
+  <input id="text" type="text" class="form-control" placeholder="Enter a message..."> 
+   
+     <span class="input-group-btn">
+         <button id="sendcleartext" class="btn btn-default" type="button" onclick="display()" >
+         	<span class="glyphicon glyphicon-expand" aria-hidden="true"></span>
+         </button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="glyphicon glyphicon-plus-sign"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#">upload file</a></li>
+        <li><a href="#">emoticons</a></li>
+      </ul>
 
-    <script type="text/javascript">
-                         $("#sendcleartext").click(function () {
-                         $("#text").val('');
-                         })
-                        </script>
-   </span>
-</div>
+     </span>
+  </div>
 </div>
 
 
 
 
 <!-- TODO: remove ugly in-line CSS -->
-<div style="border-bottom: 1px solid lightgray;">
-<span class="glyphicon glyphicon-comment padded-icon" style="font-size: 40px; color: gray;" aria-hidden="true"></span>
-<span style="font-size: 40px; bottom: 8px; left: 10px; font-weight: bold; position: relative; color: gray;">General</span>
-<!-- -->
-               
-<div class="dropdown" style="position: absolute; right: 5px; padding-right: 20px; top: 8px; font-size: 30px; color: gray;" >
-   <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" 
-      data-toggle="dropdown">
-      Options
-      <span class="caret"></span>
-   </button>
-   <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
-      <li role="presentation">
-         <a role="menuitem" tabindex="-1" href="#">Team Profile</a>
-      </li>
-      <li role="presentation">
-         <a role="menuitem" tabindex="-1" href="#">File Sharing</a>
-      </li>
-      <li role="presentation">
-         <a role="menuitem" tabindex="-1" href="#">
-            Post
-         </a>
-      </li>
-      <li role="presentation" class="divider"></li>
-      <li role="presentation">
-         <a role="menuitem" tabindex="-1" href="#">Help</a>
-      </li>
-   </ul>
-</div>
-
-<!--<span style="position: absolute; right: 0; padding-right: 20px; top: 8px; font-size: 30px; color: gray;" class="glyphicon glyphicon-menu-hamburger"></span> -->
-
-</div>
+  <div id="top_bar" style="border-bottom: 1px solid lightgray;">
+    <span class="glyphicon glyphicon-comment padded-icon" style="font-size: 40px; color: gray;" aria-hidden="true"></span>
+    <span style="font-size: 40px; bottom: 8px; left: 10px; font-weight: bold; position: relative; color: gray;">General</span>
+    <div class="dropdown" style="position: absolute; right: 5px; padding-right: 20px; top: 8px; font-size: 30px; color: gray;" >
+     <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" 
+        data-toggle="dropdown">
+        Options
+        <span class="caret"></span>
+     </button>
+     <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+        <li role="presentation">
+           <a role="menuitem" tabindex="-1" href="#">Team Profile</a>
+        </li>
+        <li role="presentation">
+           <a role="menuitem" tabindex="-1" href="#">File Sharing</a>
+        </li>
+        <li role="presentation">
+           <a role="menuitem" tabindex="-1" href="#">
+              Post
+           </a>
+        </li>
+        <li role="presentation" class="divider"></li>
+        <li role="presentation">
+           <a role="menuitem" tabindex="-1" href="#">Help</a>
+        </li>
+     </ul>
+    </div>
+    <div id="message_search" class="input-group">
+       <input type="text" class="form-control" placeholder="Search messages...">
+       <span class="input-group-btn">
+           <button class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+           </button>
+       </span>
+    </div>
+  </div>
 
 <div class="scroll-area" data-spy="scroll" data-target="#myNavbar" data-offset="0">
 <div id="message_list">
-<div id="message_search" class="input-group">
-   <input type="text" class="form-control" placeholder="Search messages...">
-   <span class="input-group-btn">
-       <button class="btn btn-default" type="button">
-       	<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-       </button>
-   </span>
-</div>
+
 <div id="messagecontent">
-<!-- <div class="message"><strong>Oscar:</strong> Hi Everyone</div>
- -->
+
 </div>
            </div>
 </div>
