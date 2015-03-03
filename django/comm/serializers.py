@@ -20,6 +20,9 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
 		fields = ('text', 'time', 'at_message', 'room', 'user')
 
 class MessageDataSerializer(serializers.HyperlinkedModelSerializer):
+	# This serializer will serialize all of the messages in the message model 
+	# and all of the data associated with those messages.  The data from
+	# the models User and Room will be displayed.
 	room = RoomSerializer()
 	user = UserSerializer()
 	class Meta:

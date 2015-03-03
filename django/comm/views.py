@@ -22,6 +22,9 @@ class MessageViewSet(viewsets.ModelViewSet):
 	serializer_class = MessageSerializer
 
 class MessageDataViewSet(viewsets.ReadOnlyModelViewSet):
+	# This viewset will show all of the messages in the message model 
+	# and all of the data associated with those messages.  The data from
+	# the models User and Room will be displayed.
 	queryset = Message.objects.all().order_by('time')
 	serializer_class = MessageDataSerializer
 
