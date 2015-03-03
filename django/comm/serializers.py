@@ -19,6 +19,20 @@ class MessageSerializer(serializers.HyperlinkedModelSerializer):
 		model = Message
 		fields = ('text', 'time', 'at_message', 'room', 'user')
 
+class MessageDataSerializer(serializers.HyperlinkedModelSerializer):
+	room = RoomSerializer()
+	user = UserSerializer()
+	class Meta:
+		model = Message
+		fields = ('text', 'time', 'at_message', 'room', 'user')
+
+#class MessageDataSerializer(serializers.Serializer):
+#	text = serializers.CharField(style={'base_template': 'textarea.html'})
+#	time = serializers.DateTimeField()
+#	at_message = serializers.BooleanField()
+#	room = RoomSerializer()
+#	user = UserSerializer()
+
 # class PaginatedMessageSerializer(serializers.PaginationSerializer):
 # 	class Meta:
 # 		object_serializer_class = MessageSerializer
