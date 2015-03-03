@@ -13,6 +13,5 @@ urlpatterns = patterns('',
 	url(r'^api/', include(router.urls)),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', include('comm.urls')),
-    #url(r'^message-data/$', views.MessageDataViewSet.as_view()),
 )
 

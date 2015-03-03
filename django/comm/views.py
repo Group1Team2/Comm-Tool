@@ -21,7 +21,7 @@ class MessageViewSet(viewsets.ModelViewSet):
 	queryset = Message.objects.all().order_by('time')
 	serializer_class = MessageSerializer
 
-class MessageDataViewSet(viewsets.ModelViewSet):
+class MessageDataViewSet(viewsets.ReadOnlyModelViewSet):
 	queryset = Message.objects.all().order_by('time')
 	serializer_class = MessageDataSerializer
 
