@@ -2,108 +2,101 @@
 <html>
 <head>
 <title>Communication tool</title>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.4/socket.io.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <!-- jQuery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
+  <!-- socketIO -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.4/socket.io.min.js"></script>
 
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css">
+  <!-- bootstrap dependencies -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css">
 
-<style type="text/css">
-         
-div#wrapper {
-padding-top: 10px;
-/*background-color: #337ab7;
-*/}
+  <style type="text/css">
+           
+    div#wrapper {
+      padding-top: 10px;
+    }
 
-div#message_bar {
-position: fixed;
-bottom: 0;
-padding-bottom: 10px;
-padding-right: 15px;
-padding-top: 10px;
-z-index: 9999;
-background-color: white;
-}
+    div#message_bar {
+      position: fixed;
+      bottom: 0;
+      padding-bottom: 10px;
+      padding-right: 35px;
+      padding-top: 10px;
+      z-index: 9999;
+      background-color: white;
+    }
 
-div#message_search {
-padding-bottom: 15px;
-}
+    div#message_search {
+      padding-bottom: 15px;
+    }
 
-.padded-icon {
-padding-right: 10px;
-}
+    .padded-icon {
+      padding-right: 10px;
+    }
 
-div#sidebar {
-height: 98%;
-border-right: 1px solid lightgray;
-position: fixed;
-background-color: aliceblue;
-}
+    div#sidebar {
+      height: 98%;
+      border-right: 1px solid lightgray;
+      position: fixed;
+      background-color: aliceblue;
+    }
 
-/* WHY DOESN'T THIS WORK? */
-.message:nth-of-type(odd)){
- background-color: #lightgray;
-}
+    .user {
+      height: 20px;
+      list-style-type: none;
+    }
+    .link {
+      height: 20px;
+      list-style-type: none;
+    }
+    .user_list {
+      padding-left: 15px;
+    }
 
-.user {
-height: 20px;
-list-style-type: none;
-}
-            .link {
-height: 20px;
-list-style-type: none;
-}
-.user_list {
-padding-left: 15px;
-}
-.link_list {
-padding-left: 15px;
-}
+    .link_list {
+      padding-left: 15px;
+    }
 
-div#message_list {
-margin: 10px;
+    div#message_list {
+      margin: 10px;
+    }
 
-}
+    div.message {
+      padding-top: 5px;
+    }
 
-div.message {
-padding-top: 5px;
+    .disabled a {
+      color: gray;
+      text-decoration: none;
+    }
 
+    .sidebar_description {
+      text-align: center;
+      padding-bottom: 5px;
+      padding-top:5px;
+      background-color: #5bc0de;
+    }
+    .scroll-area {
+      height: 90%;
+      position: relative;
+      overflow: auto;
+    }
 
-}
+    div#top_bar {
+      position: fixed;
+      background-color: white;
+      z-index: 10000;
+      padding-right: 35px;
+    }
 
-.disabled a {
-color: gray;
-text-decoration: none;
-}
+    div#messagecontent {
+      padding-top: 110px;
+    }
 
-.sidebar_description {
-text-align: center;
-padding-bottom: 5px;
-padding-top:5px;
-background-color: #5bc0de;
-}
-.scroll-area {
-       height: 90%;
-       position: relative;
-       overflow: auto;
-            }
-
-div#top_bar {
-  position: fixed;
-  background-color: white;
-  z-index: 10000;
-
-}
-
-div#messagecontent {
-  padding-top: 110px;
-}
-
-</style>
+  </style>
 
 </head>
 <body>
@@ -173,7 +166,7 @@ div#messagecontent {
 
 
 <div id="messages" class="col-xs-9 col-xs-offset-3 col-lg-10 col-lg-offset-2">
-<div id="message_bar">
+<div id="message_bar" class="col-lg-10 col-xs-9">
   <div class="input-group input-group-lg">
   <input id="text" type="text" class="form-control" placeholder="Enter a message..."> 
    
@@ -188,21 +181,16 @@ div#messagecontent {
         <li><a href="#">upload file</a></li>
         <li><a href="#">emoticons</a></li>
       </ul>
-
      </span>
   </div>
 </div>
 
-
-
-
 <!-- TODO: remove ugly in-line CSS -->
-  <div id="top_bar" style="border-bottom: 1px solid lightgray;">
+  <div id="top_bar" style="border-bottom: 1px solid lightgray; padding-top: 10px;" class="col-lg-10 col-xs-9">
     <span class="glyphicon glyphicon-comment padded-icon" style="font-size: 40px; color: gray;" aria-hidden="true"></span>
     <span style="font-size: 40px; bottom: 8px; left: 10px; font-weight: bold; position: relative; color: gray;">General</span>
-    <div class="dropdown" style="position: absolute; right: 5px; padding-right: 20px; top: 8px; font-size: 30px; color: gray;" >
-     <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" 
-        data-toggle="dropdown">
+    <div class="dropdown" style="position: absolute; right: 10px; padding-right: 20px; top: 8px; font-size: 30px; color: gray;" >
+     <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
         Options
         <span class="caret"></span>
      </button>
@@ -224,6 +212,7 @@ div#messagecontent {
         </li>
      </ul>
     </div>
+
     <div id="message_search" class="input-group">
        <input type="text" class="form-control" placeholder="Search messages...">
        <span class="input-group-btn">
@@ -277,6 +266,7 @@ div#messagecontent {
   function display() {
     var message = username + " : " + document.getElementById("text").value;
     socket.emit('msg', message);
+    $('input#text').val('');
   }
 
   // Generate random user
@@ -284,6 +274,13 @@ div#messagecontent {
     var random_index = Math.floor( Math.random() * 100 ) + 1;
     return "User " + random_index;
   }
+
+  // Add a new message whenever the user presses the enter key
+  $(document).keypress(function(e) {
+      if(e.which == 13) {
+          display();
+      }
+  });
 
 </script>
 
