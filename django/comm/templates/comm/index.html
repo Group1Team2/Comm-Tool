@@ -12,8 +12,8 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap-theme.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css">
-
-  <style type="text/css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+<style type="text/css">
            
     div#wrapper {
       padding-top: 10px;
@@ -28,7 +28,30 @@
       z-index: 9999;
       background-color: white;
     }
-
+    div#color_bar{
+      position: fixed; 
+      top: 0px;
+      height: 10px; 
+      width: 100%; 
+      background-color: #337ab7; 
+      z-index: 1000000
+    }
+    div#top_bar{
+      border-bottom: 1px solid lightgray;
+      padding-top: 10px;
+    }
+    .padded-icon{
+      font-size: 30px; 
+      color: gray;"
+    }
+    div#top_bar_header{
+      font-size: 80px; 
+      bottom: 8px; 
+      left: 10px; 
+      font-weight: bold; 
+      position: relative; 
+      color: gray;
+    }
     div#message_search {
       padding-bottom: 15px;
     }
@@ -96,13 +119,13 @@
       padding-top: 110px;
     }
 
-  </style>
+  </style> 
 
 </head>
 <body>
 <div id="wrapper">
 
-<div id="color_bar" style="position: fixed; top: 0px; height: 10px; width: 100%; background-color: #337ab7; z-index: 1000000">
+<div id="color_bar">
 </div>
 
 <div id="sidebar" class="col-xs-3 col-lg-2">
@@ -186,9 +209,9 @@
 </div>
 
 <!-- TODO: remove ugly in-line CSS -->
-  <div id="top_bar" style="border-bottom: 1px solid lightgray; padding-top: 10px;" class="col-lg-10 col-xs-9">
-    <span class="glyphicon glyphicon-comment padded-icon" style="font-size: 40px; color: gray;" aria-hidden="true"></span>
-    <span style="font-size: 40px; bottom: 8px; left: 10px; font-weight: bold; position: relative; color: gray;">General</span>
+  <div id="top_bar"  class="col-lg-10 col-xs-9">
+    <span class="glyphicon glyphicon-comment padded-icon" aria-hidden="true"></span>
+    <span id="top_bar_header"> General</span>
     <div class="dropdown" style="position: absolute; right: 10px; padding-right: 20px; top: 8px; font-size: 30px; color: gray;" >
      <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
         Options

@@ -1,0 +1,79 @@
+<style type="text/css">
+         
+div#wrapper {
+padding-top: 10px;
+background-color: #337ab7;
+}
+
+div#message_bar {
+position: fixed;
+bottom: 0;
+padding-bottom: 10px;
+padding-right: 15px;
+background-color: aliceblue;
+}
+
+div#message_search {
+padding-bottom: 15px;
+}
+
+.padded-icon {
+padding-right: 10px;
+}
+
+div#sidebar {
+height: 98%;
+border-right: 1px solid lightgray;
+position: absolute;
+background-color: aliceblue;
+}
+
+/* WHY DOESN'T THIS WORK? */
+.message:nth-of-type(odd)){
+ background-color: #lightgray;
+}
+
+.user {
+height: 20px;
+list-style-type: none;
+}
+            .link {
+height: 20px;
+list-style-type: none;
+}
+.user_list {
+padding-left: 15px;
+}
+.link_list {
+padding-left: 15px;
+}
+
+div#message_list {
+margin: 10px;
+
+}
+
+div.message {
+padding-top: 5px;
+
+
+}
+
+.disabled a {
+color: gray;
+text-decoration: none;
+}
+
+.sidebar_description {
+text-align: center;
+padding-bottom: 5px;
+padding-top:5px;
+background-color: #5bc0de;
+}
+.scroll-area {
+       height: 90%;
+       position: relative;
+       overflow: auto;
+            }
+
+</style>
