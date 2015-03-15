@@ -12,13 +12,23 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap-theme.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css">
+
+<!--Line 95: font-size:20px: the size of icon of header "General" and the size of other icon will change the same time. -->
   <link rel="stylesheet" type="text/css" href="style.css">
-<style type="text/css">
+  <!--
+  <style type="text/css">
            
     div#wrapper {
       padding-top: 10px;
     }
-
+    div#color_bar{
+      position: fixed; 
+      top: 0px; 
+      height: 10px; 
+      width: 100%; 
+      background-color: #337ab7; 
+      z-index: 1000000;
+    }
     div#message_bar {
       position: fixed;
       bottom: 0;
@@ -28,45 +38,19 @@
       z-index: 9999;
       background-color: white;
     }
-    div#color_bar{
-      position: fixed; 
-      top: 0px;
-      height: 10px; 
-      width: 100%; 
-      background-color: #337ab7; 
-      z-index: 1000000
-    }
-    div#top_bar{
-      border-bottom: 1px solid lightgray;
-      padding-top: 10px;
-    }
-    .padded-icon{
-      font-size: 30px; 
-      color: gray;"
-    }
-    div#top_bar_header{
-      font-size: 80px; 
-      bottom: 8px; 
-      left: 10px; 
-      font-weight: bold; 
-      position: relative; 
-      color: gray;
-    }
     div#message_search {
       padding-bottom: 15px;
     }
-
     .padded-icon {
       padding-right: 10px;
+      font-size: 20px;
     }
-
     div#sidebar {
       height: 98%;
       border-right: 1px solid lightgray;
       position: fixed;
       background-color: aliceblue;
     }
-
     .user {
       height: 20px;
       list-style-type: none;
@@ -78,24 +62,19 @@
     .user_list {
       padding-left: 15px;
     }
-
     .link_list {
       padding-left: 15px;
     }
-
     div#message_list {
       margin: 10px;
     }
-
     div.message {
       padding-top: 5px;
     }
-
     .disabled a {
       color: gray;
       text-decoration: none;
     }
-
     .sidebar_description {
       text-align: center;
       padding-bottom: 5px;
@@ -107,19 +86,39 @@
       position: relative;
       overflow: auto;
     }
-
     div#top_bar {
       position: fixed;
       background-color: white;
       z-index: 10000;
       padding-right: 35px;
+      border-bottom: 1px solid lightgray; 
+      padding-top: 10px;"
+    }
+    .padded-icon{
+      font-size: 20px; 
+      color: gray;
+    }
+    .top_bar_header{
+      font-size: 40px; 
+      bottom: 8px; 
+      left: 10px; 
+      font-weight: bold; 
+      position: relative; 
+      color: gray;
+    }
+    .dropdown{
+      position: absolute; 
+      right: 10px; 
+      padding-right: 20px; 
+      top: 8px; 
+      font-size: 30px; 
+      color: gray;"
     }
 
     div#messagecontent {
       padding-top: 110px;
     }
-
-  </style> 
+  </style> -->
 
 </head>
 <body>
@@ -209,10 +208,10 @@
 </div>
 
 <!-- TODO: remove ugly in-line CSS -->
-  <div id="top_bar"  class="col-lg-10 col-xs-9">
+  <div id="top_bar" class="col-lg-10 col-xs-9">
     <span class="glyphicon glyphicon-comment padded-icon" aria-hidden="true"></span>
-    <span id="top_bar_header"> General</span>
-    <div class="dropdown" style="position: absolute; right: 10px; padding-right: 20px; top: 8px; font-size: 30px; color: gray;" >
+    <span class="top_bar_header">General</span>
+    <div class="dropdown">
      <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
         Options
         <span class="caret"></span>
@@ -260,51 +259,39 @@
 </body>
 
 <script>
-
   var server_host = window.location.hostname;
-
   var socket = io('http://' + server_host + ':3000');
-
   var username = random_user();
-
   // Get the messages from the API and add to the page
   $.getJSON('http://' + server_host + ':8000/api/messages/?format=json', function(json) {
-
     json.results.forEach(function(msg){
       add_message(msg.text);
     });
-
   });
-
   // When you receive a message, add it to the page
   socket.on('msg', function(msg){
     add_message(msg);
   });
-
   function add_message(msg) {
     $('div#messagecontent').append(msg + '<br>');
   }
-
   // Called when button is clicked
   function display() {
     var message = username + " : " + document.getElementById("text").value;
     socket.emit('msg', message);
     $('input#text').val('');
   }
-
   // Generate random user
   function random_user() {
     var random_index = Math.floor( Math.random() * 100 ) + 1;
     return "User " + random_index;
   }
-
   // Add a new message whenever the user presses the enter key
   $(document).keypress(function(e) {
       if(e.which == 13) {
           display();
       }
   });
-
 </script>
 
 </html>
