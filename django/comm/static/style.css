@@ -1,0 +1,103 @@
+<style type="text/css">
+           
+    div#wrapper {
+      padding-top: 10px;
+    }
+    div#color_bar{
+      position: fixed; 
+      top: 0px; 
+      height: 10px; 
+      width: 100%; 
+      background-color: #337ab7; 
+      z-index: 1000000;
+    }
+    div#message_bar {
+      position: fixed;
+      bottom: 0;
+      padding-bottom: 10px;
+      padding-right: 35px;
+      padding-top: 10px;
+      z-index: 9999;
+      background-color: white;
+    }
+    div#message_search {
+      padding-bottom: 15px;
+    }
+    .padded-icon {
+      padding-right: 10px;
+      font-size: 20px;
+    }
+    div#sidebar {
+      height: 98%;
+      border-right: 1px solid lightgray;
+      position: fixed;
+      background-color: aliceblue;
+    }
+    .user {
+      height: 20px;
+      list-style-type: none;
+    }
+    .link {
+      height: 20px;
+      list-style-type: none;
+    }
+    .user_list {
+      padding-left: 15px;
+    }
+    .link_list {
+      padding-left: 15px;
+    }
+    div#message_list {
+      margin: 10px;
+    }
+    div.message {
+      padding-top: 5px;
+    }
+    .disabled a {
+      color: gray;
+      text-decoration: none;
+    }
+    .sidebar_description {
+      text-align: center;
+      padding-bottom: 5px;
+      padding-top:5px;
+      background-color: #5bc0de;
+    }
+    .scroll-area {
+      height: 90%;
+      position: relative;
+      overflow: auto;
+    }
+    div#top_bar {
+      position: fixed;
+      background-color: white;
+      z-index: 10000;
+      padding-right: 35px;
+      border-bottom: 1px solid lightgray; 
+      padding-top: 10px;"
+    }
+    .padded-icon{
+      font-size: 20px; 
+      color: gray;
+    }
+    .top_bar_header{
+      font-size: 40px; 
+      bottom: 8px; 
+      left: 10px; 
+      font-weight: bold; 
+      position: relative; 
+      color: gray;
+    }
+    .dropdown{
+      position: absolute; 
+      right: 10px; 
+      padding-right: 20px; 
+      top: 8px; 
+      font-size: 30px; 
+      color: gray;"
+    }
+
+    div#messagecontent {
+      padding-top: 110px;
+    }
+  </style> -->
