@@ -94,22 +94,20 @@
 
 <div id="messages" class="col-xs-9 col-xs-offset-3 col-lg-10 col-lg-offset-2">
 <div id="message_bar" class="col-lg-10 col-xs-9">
-  <div class="input-group input-group-lg">
-  <input id="text" type="text" class="form-control" placeholder="Enter a message..."> 
-   
-     <span class="input-group-btn">
+<div class="input-group input-group-lg">
+<input id="text" type="text" class="form-control" placeholder="Enter a message..."> 
+<span class="input-group-btn">
          <button id="sendcleartext" class="btn btn-default" type="button" onclick="display()" >
          	<span class="glyphicon glyphicon-expand" aria-hidden="true"></span>
          </button>
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-        <span class="glyphicon glyphicon-plus-sign"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li><a href="#">upload file</a></li>
-        <li><a href="#">emoticons</a></li>
-      </ul>
-     </span>
-  </div>
+         <button id="sendemoticon" class="btn btn-default" type="button" onclick="display()" >
+                <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+         </button>
+         <button id="sendemoticon" class="btn btn-default" type="button" onclick="display()" >
+                <span aria-hidden="true">@</span>
+         </button>
+</span>  
+</div>
 </div>
 
 <!-- TODO: remove ugly in-line CSS -->
@@ -140,7 +138,7 @@
      </ul>
     </div>
 
-    <div id="message_search" class="input-group">
+<div id="message_search" class="input-group">
        <input type="text" class="form-control" placeholder="Search messages...">
        <span class="input-group-btn">
            <button class="btn btn-default" type="button">
@@ -151,6 +149,7 @@
   </div>
 
 <div class="scroll-area" data-spy="scroll" data-target="#myNavbar" data-offset="0">
+
 <div id="message_list">
 
 <div id="messagecontent">
