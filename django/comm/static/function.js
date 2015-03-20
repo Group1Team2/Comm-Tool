@@ -2,7 +2,15 @@
 
   var server_host = window.location.hostname;
 
-  var socket = io('http://' + server_host + ':3000');
+  var socket = io('http://' + server_host + ':3000/my-namespace1');
+  
+  var thisNameSpace = prompt("Please enter '1' or '2'. One is for namespace1. Two is for namespace2. Cancelling or nonsense puts you in namespace1.", "1");
+  if (thisNameSpace != "2") {
+    var socket = io('http://' + server_host + ':3000/my-namespace1');
+  }
+  else {
+    var socket = io('http://' + server_host + ':3000/my-namespace2');
+  }
 
   var username = random_user();
 
