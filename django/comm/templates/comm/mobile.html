@@ -13,7 +13,6 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style type="text/css">
-
     div#header{
       position: fixed; 
       top: 0px; 
@@ -26,7 +25,6 @@
       font-size: 20px;
       text-align: center;
       color: white;
-
     }
  /*颜色出不来 需要调整*/
    div#message_search {
@@ -38,7 +36,6 @@
       font-size: 20px;
     }
     div#roomlist{
-
     }
     .sidebar_description {
       text-align: center;
@@ -50,6 +47,27 @@
     .user_list {
       padding-left: 15px;
     }
+    .widget-content {
+      padding: 12px 15px;
+      border-bottom: 1px solid #cdcdcd;
+      border-top: 1px solid #cdcdcd;
+      border-left: 1px solid #cdcdcd;
+      border-right: 1px solid #cdcdcd;
+      height: 350px;
+      margin-bottom: 10px;
+       overflow: auto;
+    overflow-x:hidden;
+    /*this is for scrollbar*/
+    }
+    .input-group {
+      position: fixed;
+      bottom: 65px;
+      margin-top: 10px;
+    }
+    div#chat-messages-inner p {
+    padding: 10px;
+    margin: 10px 0;
+}
     div#footer {
     position: absolute;
     bottom: 0;
@@ -66,7 +84,6 @@
       padding-right: 10px;
       font-size: 20px;
   }
-
 </style>
 </head>
 <body>
@@ -141,19 +158,39 @@
 <!--text bar-->
 <!--general chatting bar-->
 <div class="hidden" id="general">
-  <div id="room-header">
+  <div id="room-header" >
+ <!--这里是从page 1借鉴过来，page1 这个位置显示group list-->
  <div class="list-group">
  <h4 class="sidebar_description">General</h4>
  
 </div>
+
+<!--这个聊天内容显示的地方，已经做到可以滚动，目前的问题是不能做到随着屏幕大小变化而变化-->
+<!--所以需要隐藏的应该是这个div 替换page 1里的响应内容，应该是group list和recent contacts-->
 <div class="widget-content nopadding">
                <div class="chat-content panel-left">                   
                    <div class="chat-messages" id="chat-messages">
+                    <p>Sherry:first version.</p>
+                    <p>Sherry:test version.</p>
+                    <p>Sherry:first version.</p>
+                    <p>Sherry:test version.</p><p>Sherry:first version.</p>
+                    <p>Sherry:test version.</p><p>Sherry:first version.</p>
+                    <p>Sherry:test version.</p><p>Sherry:first version.</p>
+                    <p>Sherry:test version.</p><p>Sherry:first version.</p>
+                    <p>Sherry:test version.</p><p>Sherry:first version.</p>
+                    <p>Sherry:test version.</p><p>Sherry:first version.</p>
+                    <p>Sherry:test version.</p><p>Sherry:first version.</p>
+                    <p>Sherry:test version.</p><p>Sherry:first version.</p>
+                    <p>Sherry:test version.</p><p>Sherry:first version.</p>
+                    <p>Sherry:test version.</p>
                    </div> 
                   </div> 
+</div>
+</div>
 
-</div>
-</div>
+<div class="clearfix"></div>
+
+<!--这个是输入框 this is input 同样这部分也应该是要隐藏的 替换page 1里的东西 -->
 <div class="input-group input-group-lg">
   <input id="textbar" type="text" class="form-control" placeholder="Enter a message..."> 
    
@@ -315,23 +352,19 @@ function teamthree(){
 $('div#list').addClass('hidden');
 $('div#teamthree').removeClass('hidden');
 };
-
 var server_host = window.location.hostname;
 var socket = io('http://' + server_host + ':3000');
 var username = random_user();
-
 // Get the messages from the API and add to the page
   $.getJSON('http://' + server_host + ':8000/api/messages/?format=json', function(json) {
     json.results.forEach(function(msg){
       add_message(msg.text);
     });
   });
-
 // When you receive a message, add it to the page
   socket.on('msg', function(msg){
     add_message(msg);
   });
-
   function add_message(msg) {
     $('div#chat-messages').append(msg + '<br>');
   };
@@ -348,14 +381,11 @@ var username = random_user();
     var random_index = Math.floor( Math.random() * 100 ) + 1;
     return "User " + random_index;
   }
-
 // Add a new message whenever the user presses the enter key
   $(document).keypress(function(e) {
       if(e.which == 13) {
           display();
       }
   });
-
-
 </script>
 </body>
