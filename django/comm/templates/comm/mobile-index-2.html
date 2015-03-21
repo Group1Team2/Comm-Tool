@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+<title>Mobile Site--Communication tool</title>
+ <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">
+
+    div#wrapper{
+      margin-bottom: 10px;
+    }
+    div#header{
+      position: fixed; 
+      top: 0px; 
+      height: 60px; 
+      width: 100%; 
+      background-color: #337ab7; 
+      z-index: 1000000;
+      margin-bottom: 10px;
+    }
+    .header_text{
+      font-size: 20px;
+      text-align: center;
+      color: white;
+
+    }
+ /*颜色出不来 需要调整*/
+   div#message_search {
+      top: 70px;
+      bottom: 15px;
+      margin-bottom: 10px;
+    }
+    .padded-icon {
+      padding-right: 10px;
+      font-size: 20px;
+    }
+    div#roomlist{
+      margin-bottom: 10px;
+
+    }
+    .sidebar_description {
+      text-align: center;
+      padding-bottom: 5px;
+      padding-top:5px;
+      background-color: #5bc0de;
+      color: white;
+    }
+    .user_list {
+      padding-left: 15px;
+    }
+    .widget-content {
+      padding: 12px 15px;
+      border-bottom: 1px solid #cdcdcd;
+      border-top: 1px solid #cdcdcd;
+      border-left: 1px solid #cdcdcd;
+      border-right: 1px solid #cdcdcd;
+      height: 350px;
+      margin-bottom: 10px;
+    }
+    div#chat-messages-inner p {
+    padding: 10px;
+    margin: 10px 0;
+}
+    div#footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    height: 60px;/*脚部的高度*/
+    background: #337ab7;
+    clear:both;
+    margin-top: 10px;
+  }
+    .footer-content{
+      color: white;
+      margin-top: 10px;
+    }
+    .padded-icon {
+      padding-right: 10px;
+      font-size: 20px;
+  }
+
+</style>
+</head>
+<body>
+
+
+<div id="wrapper">
+
+
+<div id="header" class="col-xs-12">
+  
+    <h1 class="header_text"> Comm-Tool </h1> 
+</div>    
+<div id="message_search" class="col-xs-10 col-xs-offset-1">
+  <div class="input-group">
+  <input type="text" class="form-control" placeholder="Search messages...">
+       <span class="input-group-btn">
+           <button class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+           </button>
+       </span>
+   </input>
+ </div>
+<div id="room-list">
+ <div class="list-group">
+ <h4 class="sidebar_description">Team one</h4>
+ 
+</div>
+<div class="widget-content nopadding">
+               <div class="chat-content panel-left">                   
+                   <div class="chat-messages" id="chat-messages">
+                    <p>Sherry:first version.</p>
+                    <p>Sherry:test version.</p>
+                   </div> 
+                  </div> 
+</div>
+</div>
+<div class="input-group input-group-lg">
+  <input id="text" type="text" class="form-control" placeholder="Enter a message..."> 
+   
+     <span class="input-group-btn">
+         <button id="sendcleartext" class="btn btn-default" type="button" onclick="display()" >
+          <span class="glyphicon glyphicon-expand" aria-hidden="true"></span>
+         </button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="glyphicon glyphicon-plus-sign"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#">upload file</a></li>
+        <li><a href="#">emoticons</a></li>
+      </ul>
+     </span>
+  </div>
+</div>
+</div>
+
+
+ <div id="footer">
+
+      <div class="col-xs-4 footer-content">
+         <span class="glyphicon glyphicon-comment padded-icon" aria-hidden="true"></span>
+         <p>
+          Room List 
+         </p>
+      </div>
+       <div class="col-xs-4 footer-content">
+         <span class="glyphicon glyphicon-user padded-icon"></span>
+         <p>User List
+         </p>
+      </div> 
+      <div class="col-xs-4 footer-content">
+         <span class="glyphicon glyphicon-check padded-icon"></span>
+         <p>Quick Link
+         </p>
+      </div>
+
+
+</div>
+
+
+
+       
+    
+
+
+
+
+
+</div>
+</body>
+</html>
