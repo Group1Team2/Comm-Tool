@@ -23,6 +23,7 @@ class Room(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.CharField(max_length=500)
 	public = models.BooleanField(default=True)
+	#users = models.ManyToManyField(User)
 
 class Message(models.Model):
 

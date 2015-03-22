@@ -20,36 +20,30 @@ var message_template = {
 }
 
 // WebSocket stuff
+var rooms = ["room1", "room2"];
+var namespaces = [];
+rooms.forEach(function(aRoom) {
+	namespaces[aRoom] = io.of('/' + aRoom);
+	namespaces[aRoom].on('connection', function(socket) {
+		console.log('someone connected to ' + aRoom);
 
-var nsp1 = io.of('/my-namespace1');
-nsp1.on('connection', function(socket) {
-	console.log('someone connected to namespace 1');
+		socket.on('disconnect', function(){
+			console.log('someone disconnected from ' + aRoom);
+		});
 
-	socket.on('disconnect', function(){
-		console.log('user disconnected!');
-	});
-
-	socket.on('msg', function(msg) {
-		nsp1.emit('msg', msg);
-		message_template.data.text = msg;
-		client.post(msg_endpoint, message_template, function(data,response) { console.log(msg) });
-	});
-});
-
-var nsp2 = io.of('/my-namespace2');
-nsp2.on('connection', function(socket) {
-	console.log('someone connected to namespace 2');
-
-	socket.on('disconnect', function(){
-		console.log('user disconnected!');
-	});
-
-	socket.on('msg', function(msg) {
-		nsp2.emit('msg', msg);
-		message_template.data.text = msg;
-		client.post(msg_endpoint, message_template, function(data,response) { console.log(msg) });
+		socket.on('msg', function(msg) {
+			namespaces[aRoom].emit('msg', msg);
+			message_template.data.text = msg;
+			client.post(msg_endpoint, message_template, function(data,response) { console.log(msg) });
+		});
 	});
 });
+
+function broadcast(msg, activeNamespaces) {
+	activeNamespaces.forEach(function(aNamespace) {
+		aNamespace.emit('msg', msg);
+	});
+}
 
 // Start the server
 http.listen(3000, function(){

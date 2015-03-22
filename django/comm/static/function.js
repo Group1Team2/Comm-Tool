@@ -4,12 +4,12 @@
 
   var socket = io('http://' + server_host + ':3000/my-namespace1');
   
-  var thisNameSpace = prompt("Please enter '1' or '2'. One is for namespace1. Two is for namespace2. Cancelling or nonsense puts you in namespace1.", "1");
+  var thisNameSpace = prompt("Please enter '1' or '2'. One is for room1. Two is for room2. Cancelling or nonsense puts you in room1.", "1");
   if (thisNameSpace != "2") {
-    var socket = io('http://' + server_host + ':3000/my-namespace1');
+    var socket = io('http://' + server_host + ':3000/room1');
   }
   else {
-    var socket = io('http://' + server_host + ':3000/my-namespace2');
+    var socket = io('http://' + server_host + ':3000/room2');
   }
 
   var username = random_user();
