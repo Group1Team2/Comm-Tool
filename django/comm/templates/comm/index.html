@@ -123,7 +123,6 @@
    	min-width: 384px;
    	margin-bottom: 170px;
 	}
-
 	div#messages_hidden {
   	height: 98%;
   	border-right: 1px solid lightgray;
@@ -265,7 +264,7 @@
     	</li>
     	<li role="presentation" class="divider"></li>
     	<li role="presentation">
-       	<a role="menuitem" tabindex="-1" href="#">Help</a>
+       	<a role="menuitem" tabindex="-1" href="#" >Back</a>
     	</li>
  	</ul>
 	</div>
@@ -368,7 +367,7 @@
     	</li>
     	<li role="presentation" class="divider"></li>
     	<li role="presentation">
-       	<a role="menuitem" tabindex="-1" href="#">Help</a>
+       	<a role="menuitem" tabindex="-1" href="#" data-toggle="botton" onclick="back()">Back</a>
     	</li>
  	</ul>
 	</div>
@@ -445,21 +444,18 @@ $('.top_bar_header').text("General");
 $('div#sidebar').addClass('hidden-xs');
 $('div#messages_hidden').removeClass('hidden');
 $('div#messages_hidden').addClass('visible-xs');
-
 };
 function teamone(){
 $('.top_bar_header').text("Team One");
 $('div#sidebar').addClass('hidden-xs');
 $('div#messages_hidden').removeClass('hidden');
 $('div#messages_hidden').addClass('visible-xs');
-
 };
 function teamtwo(){
 $('.top_bar_header').text("Team Two");
 $('div#sidebar').addClass('hidden-xs');
 $('div#messages_hidden').removeClass('hidden');
 $('div#messages_hidden').addClass('visible-xs');
-
 };
 function teamthree(){
 $('.top_bar_header').text("Team Three");
@@ -467,9 +463,11 @@ $('div#sidebar').addClass('hidden-xs');
 $('div#messages_hidden').removeClass('hidden');
 $('div#messages_hidden').addClass('visible-xs');
 };
-
-
-
+function back(){
+$('div#sidebar').removeClass('hidden-xs');
+$('div#messages_hidden').addClass('hidden');
+$('div#messages_hidden').removeClass('visible-xs');
+}
   var server_host = window.location.hostname;
   var socket = io('http://' + server_host + ':3000');
   var username = random_user();
@@ -485,6 +483,7 @@ $('div#messages_hidden').addClass('visible-xs');
   });
   function add_message(msg) {
 	$('div#messagecontent').append(msg + '<br>');
+$('div#messagecontent_2').append(msg + '<br>');
   }
   // Called when button is clicked
   function display() {
@@ -505,12 +504,22 @@ $('div#messages_hidden').addClass('visible-xs');
   // Add a new message whenever the user presses the enter key
   $(document).keypress(function(e) {
   	if(e.which == 13) {
-      	display();
+       var x = document.getElementById("text").value;
+        var y = document.getElementById("text_2").value;
+        if((x!='')&&(y==''))
+         display();
+        else if((y!='')&&(x==''))
+        display2();
+      
   	}
   });
 </script>
 
 </html>
 
+<!--$(document).keypress(function(e) {
+  	if(e.which == 13) {
+        
+  	};
 
-
+  }>
