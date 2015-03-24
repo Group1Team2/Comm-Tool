@@ -1,3 +1,7 @@
+// global state variables
+global_room_list = [];
+global_user_list = [];
+
 var server_host = window.location.hostname;
 
 var socket = io('http://' + server_host + ':3000');
@@ -46,4 +50,86 @@ $(document).keypress(function(e) {
     }
 });
 
-$.getJSON('http://' + server_host + '/api/rooms/?format=json', function(data) { console.log(data.results) });
+
+function switch_room(target_room){
+
+  global_room_list.results.forEach( function(room){
+
+    var room_num = 'room-' + room.id;
+    if (room_num === target_room) {
+      $('div.messagecontent').filter('#' + room_num).show();
+      $('div#room-list a').filter('#' + room_num).attr('class', 'list-group-item room-link active');
+    } else {
+      $('div.messagecontent').filter('#' + room_num).hide();
+      $('div#room-list a').filter('#' + room_num).attr('class', 'list-group-item room-link');
+    }
+
+  });
+
+}
+
+function populate_room_list() {
+  $.getJSON('http://' + server_host + '/api/rooms/?format=json', function(data) { 
+    global_room_list = data;
+    data.results.forEach(function(room) {
+
+      var room_link = $('<a />', {
+        'href': '#',
+        'id': 'room-' + room.id,
+        'class': 'list-group-item room-link',
+      })
+      .append( $('<span />', {
+        'class': 'glyphicon glyphicon-comment padded-icon',
+        'ariad-hidden': true
+      }))
+      .append(room.name)
+      .append( $('<span />',{
+        'class': 'badge',
+        // 'text': 1
+      }));
+
+      $('div#room-list').append(room_link)
+
+      // add room to message list
+      $('div#message_list').append( $('<div />', {
+        'class': 'messagecontent',
+        'id': 'room-' + room.id,
+        'text': room.id,
+      }));
+
+    });
+
+  });
+}
+
+function populate_user_list() {
+  $.getJSON('http://' + server_host + '/api/users/?format=json', function(data) { 
+    global_user_list = data;
+    data.results.forEach(function(user) {
+      var user_link = $('<li />', {
+        'class': user.online ? 'user' : 'user disabled',
+        'html': 
+        $('<a />', {
+          'href': '#'
+        })
+        .append( $('<span />', {
+          'class': 'glyphicon glyphicon-user padded-icon'
+          })).append(user.name)
+      })
+
+      $('ul.user_list').append(user_link);
+
+    });
+  });
+}
+
+
+// MAIN
+$(document).ready(function(){
+
+  populate_room_list();
+  populate_user_list();
+
+  $('div#room-list').on('click', 'a', function(){ switch_room( $(this).attr('id') ) } );
+
+});

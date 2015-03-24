@@ -16,7 +16,7 @@ class User(models.Model):
 class Room(models.Model):
 
 	def __repr__(self):
-		return 'User: %s' % self.name
+		return 'Room: %s' % self.name
 
 	def __str__(self):
 		return self.name
@@ -24,7 +24,7 @@ class Room(models.Model):
 	name = models.CharField(max_length=100)
 	description = models.CharField(max_length=500)
 	public = models.BooleanField(default=True)
-        users = models.ManyToManyField(User)
+	users = models.ManyToManyField(User)
 
 class Message(models.Model):
 

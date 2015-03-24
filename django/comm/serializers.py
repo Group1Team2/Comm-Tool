@@ -12,12 +12,18 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class RoomSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Room
-		fields = ('name', 'description', 'public')
+		fields = ('id', 'name', 'description', 'public')
 
 class MessageSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Message
 		fields = ('text', 'time', 'at_message', 'room', 'user')
+
+class UserRoomSerializer(serializers.HyperlinkedModelSerializer):
+#        room = RoomSerializer()
+        class Meta:
+                model = User
+                fields = ('name', 'online', 'room_set')
 
 class MessageDataSerializer(serializers.HyperlinkedModelSerializer):
 	# This serializer will serialize all of the messages in the message model 

@@ -1,14 +1,10 @@
 <!-- ITERATION 1 CODE -->
-
 <!doctype html>
 <html>
 <head>
 <title>Communication tool</title>
   <!-- jQuery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
-  <!-- underscore -->
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
 
   <!-- socketIO -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.4/socket.io.min.js"></script>
@@ -32,15 +28,43 @@
 
     <div id="sidebar" class="col-xs-3 col-lg-2">
       <h4 class="sidebar_description">Chatting Room</h4>
-      <div id="room-list" class="list-group">
-        <a href="#" class="list-group-item room-add">
-          <span id="create-room" class="glyphicon glyphicon-plus padded-icon" aria-hidden="true"></span>Create New Teams
+      <div class="list-group">
+        <a href="#" class="list-group-item active">
+          <span class="glyphicon glyphicon-globe padded-icon" aria-hidden="true"></span>General
+        </a>
+        <a href="#" class="list-group-item">
+          <span class="glyphicon glyphicon-comment padded-icon" aria-hidden="true"></span>Team One
+          <span class="badge">4</span>
+        </a>
+        <a href="#" class="list-group-item">
+          <span class="glyphicon glyphicon-comment padded-icon" aria-hidden="true"></span>Team Two
+        </a>
+        <a href="#" class="list-group-item">
+          <span class="glyphicon glyphicon-comment padded-icon" aria-hidden="true"></span>Team three
+        </a>
+        <a href="#" class="list-group-item">
+          <span class="glyphicon glyphicon-plus padded-icon" aria-hidden="true"></span>Create New Teams
         </a>
       </div>
 
       <h4 class="sidebar_description">Users</h4>
 
       <ul class="user_list">
+        <li class="user"><a href="#">
+          <span class="glyphicon glyphicon-user padded-icon"></span>Oscar</a>
+        </li>
+        <li class="user"><a href="#">
+          <span class="glyphicon glyphicon-user padded-icon"></span>Bill</a>
+        </li>
+        <li class="user disabled"><a href="#">
+          <span class="glyphicon glyphicon-user padded-icon"></span>Sherry</a>
+        </li>
+        <li class="user disabled"><a href="#">
+          <span class="glyphicon glyphicon-user padded-icon"></span>Jenna</a>
+        </li>
+        <li class="user disabled"><a href="#">
+          <span class="glyphicon glyphicon-user padded-icon"></span>Jewel</a>
+        </li>
       </ul>
 
       <h4 class="sidebar_description">Quick link to</h4>
@@ -60,8 +84,8 @@
       <div id="message_bar" class="col-lg-10 col-xs-9">
         <div class="input-group input-group-lg">
           <input id="text" type="text" class="form-control" placeholder="Enter a message..."> 
-          <span class="input-group-btn dropup">
-            <button id="sendcleartext" class="btn btn-default" type="button" onclick="display();">
+          <span class="input-group-btn">
+            <button id="sendcleartext" class="btn btn-default" type="button">
               <span class="glyphicon glyphicon-expand" aria-hidden="true"></span>
             </button>
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -76,7 +100,6 @@
       </div>
 
     <div id="top_bar" style="border-bottom: 1px solid lightgray; padding-top: 10px;" class="col-lg-10 col-xs-9">
-
       <span class="glyphicon glyphicon-comment padded-icon" style="font-size: 40px; color: gray;" aria-hidden="true"></span>
       <span style="font-size: 40px; bottom: 8px; left: 10px; font-weight: bold; position: relative; color: gray;">General</span>
       <div class="dropdown" style="position: absolute; right: 10px; padding-right: 20px; top: 8px; font-size: 30px; color: gray;" >
@@ -99,21 +122,20 @@
             <a role="menuitem" tabindex="-1" href="#">Help</a>
           </li>
         </ul>
-      </div>
-
-      <div id="message_search" class="input-group">
-        <input type="text" class="form-control" placeholder="Search messages...">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button">
-            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-          </button>
-        </span>
-      </div>
-
     </div>
 
-    <div class="scroll-area">
+    <div id="message_search" class="input-group">
+      <input type="text" class="form-control" placeholder="Search messages...">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+        </button>
+      </span>
+    </div>
+
+    <div class="scroll-area" data-spy="scroll" data-target="#myNavbar" data-offset="0">
       <div id="message_list">
+        <div id="messagecontent"></div>
       </div>
     </div>
 

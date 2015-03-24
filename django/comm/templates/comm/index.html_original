@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+<head>
+<title>Communication tool</title>
+
+<!--reference-->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.4/socket.io.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.min.css">
+
+
+<!--load .css .js from static folder-->
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+<script type="text/javascript" src="{% static 'function.js' %}"></script>
+</head>
+
+
+
+
+
+
+
+<body onKeyDown="_b">
+<div id="wrapper">
+
+<div id="color_bar" style="position: fixed; top: 0px; height: 10px; width: 100%; background-color: #337ab7; z-index: 1000000">
+</div>
+
+<div id="sidebar" class="col-xs-3 col-lg-2">
+
+            <h4 class="sidebar_description">Chatting Room</h4>
+
+<div class="list-group">
+ <a href="#" class="list-group-item active">
+ 	<span class="glyphicon glyphicon-globe padded-icon" aria-hidden="true"></span>
+ 	General
+ </a>
+ <a href="#" class="list-group-item">
+ 	<span class="glyphicon glyphicon-comment padded-icon" aria-hidden="true"></span>
+ 	Team One
+ 	<span class="badge">4</span>
+ </a>
+ <a href="#" class="list-group-item">
+ 	<span class="glyphicon glyphicon-comment padded-icon" aria-hidden="true"></span>
+ 	Team Two
+ </a>
+ <a href="#" class="list-group-item">
+ 	<span class="glyphicon glyphicon-comment padded-icon" aria-hidden="true"></span>
+ 	Team three
+ </a>
+ <a href="#" class="list-group-item">
+ 	<span class="glyphicon glyphicon-plus padded-icon" aria-hidden="true"></span>
+ 	Create New Teams
+ </a>
+</div>
+
+<h4 class="sidebar_description">Users</h4>
+
+<ul class="user_list">
+   <li class="user"><a href="#">
+   	<span class="glyphicon glyphicon-user padded-icon"></span>Oscar</a>
+   </li>
+   <li class="user"><a href="#">
+   	<span class="glyphicon glyphicon-user padded-icon"></span>Bill</a>
+   </li>
+   <li class="user disabled"><a href="#">
+   	<span class="glyphicon glyphicon-user padded-icon"></span>Sherry</a>
+   </li>
+   <li class="user disabled"><a href="#">
+   	<span class="glyphicon glyphicon-user padded-icon"></span>Jenna</a>
+   </li>
+   <li class="user disabled"><a href="#">
+   	<span class="glyphicon glyphicon-user padded-icon"></span>Jewel</a>
+   </li>
+</ul>
+                 <h4 class="sidebar_description">Quick link to</h4>
+
+<ul class="link_list">
+   <li class="link"><a href="#">
+   	<span class="glyphicon glyphicon-book padded-icon"></span>Requirement Management Tool</a>
+   </li>
+   <br />
+    <li class="user"><a href="#">
+   	<span class="glyphicon glyphicon-check padded-icon"></span>Issue Management Tool</a>
+   </li>
+</div>	
+
+
+<div id="messages" class="col-xs-9 col-xs-offset-3 col-lg-10 col-lg-offset-2" style="width:80%">
+<div id="message_bar" style="width:80%">
+  <div class="input-group input-group-lg">
+  <input id="text" type="text" class="form-control" placeholder="Enter a message..."> 
+   
+     <span class="input-group-btn">
+         <button id="sendcleartext" class="btn btn-default" type="button" onclick="display()" >
+         	<span class="glyphicon glyphicon-expand" aria-hidden="true"></span>
+         </button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        <span class="glyphicon glyphicon-plus-sign"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li><a href="#">upload file</a></li>
+        <li><a href="#">emoticons</a></li>
+      </ul>
+
+     </span>
+  </div>
+</div>
+
+
+
+
+<!-- TODO: remove ugly in-line CSS -->
+<!--width=80%-->
+  <div id="top_bar" style="border-bottom: 1px solid lightgray;width:80%">
+    <span class="glyphicon glyphicon-comment padded-icon" style="font-size: 40px; color: gray;" aria-hidden="true"></span>
+    <span style="font-size: 40px; bottom: 8px; left: 10px; font-weight: bold; position: relative; color: gray;">General</span>
+   
+    <div class="dropdown" style="position: absolute; right: 5px; padding-right: 20px; top: 8px; font-size: 30px; color: gray;" >
+   <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" 
+      data-toggle="dropdown">
+      Options
+      <span class="caret"></span>
+   </button>
+   <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="#">Team Profile</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="#">File Sharing</a>
+      </li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="#">
+            Post
+         </a>
+      </li>
+      <li role="presentation" class="divider"></li>
+      <li role="presentation">
+         <a role="menuitem" tabindex="-1" href="#">Help</a>
+      </li>
+   </ul>
+</div>
+
+    <div id="message_search" class="input-group">
+       <input type="text" class="form-control" placeholder="Search messages...">
+       <span class="input-group-btn">
+           <button class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+           </button>
+       </span>
+    </div>
+  </div>
+
+<div class="scroll-area" data-spy="scroll" data-target="#myNavbar" data-offset="0">
+<div id="message_list">
+
+<div id="messagecontent">
+
+</div>
+           </div>
+</div>
+
+</div>
+
+</body>
+</html>

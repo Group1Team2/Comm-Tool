@@ -5,13 +5,7 @@
   var socket = io('http://' + server_host + ':3000');
 
   var username = random_user();
-
-       function _b()
-       { 
-      if(event.keyCode ==13)
-      display();
-      } 
-       
+ 
   // Get the messages from the API and add to the page
   $.getJSON('http://' + server_host + ':8000/api/messages/?format=json', function(json) {
 
@@ -31,18 +25,26 @@
   }
 
   // Called when button is clicked
-  function display() {
+  function send_message() {
     var message = username + " : " + document.getElementById("text").value;
     socket.emit('msg', message);
   }
 //input enter to send message too
   function _b(){
    if (event.KeyCode==13)
-    display();
-}
+    send_message();
+  }
   // Generate random user
   function random_user() {
     var random_index = Math.floor( Math.random() * 100 ) + 1;
     return "User " + random_index;
   }
 
+function change_team() {
+  $('.top_bar_header').text("Team Three");
+  $('div#sidebar').removeClass('hidden-xs');
+  $('div#messages_hidden').addClass('hidden');
+  $('div#messages_hidden').removeClass('visible-xs');
+}
+
+$('button#sendcleartext').on('click', send_message());

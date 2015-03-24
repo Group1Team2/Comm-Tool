@@ -13,7 +13,7 @@
       } 
        
   // Get the messages from the API and add to the page
-  $.getJSON('http://' + server_host + ':8000/api/messages/?format=json', function(json) {
+  $.getJSON('http://' + server_host + '/api/messages/?format=json', function(json) {
 
     json.results.forEach(function(msg){
       add_message(msg.text);

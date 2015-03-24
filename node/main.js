@@ -3,17 +3,21 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var Client = require('node-rest-client').Client;
+var os = require('os');
+var util = require('util');
 
 var client = new Client();
 
-var msg_endpoint = 'http://localhost:8000/api/messages/'
+var ip_address = os.networkInterfaces()['eth1'][0].address;
+
+var msg_endpoint = util.format('http://%s/api/messages/', ip_address);
 
 var message_template = {
 
 	"data": {
 		"at_message": false, 
-		"room": "http://192.168.1.146:8000/api/rooms/1/", 
-		"user": "http://192.168.1.146:8000/api/users/1/"
+		"room": util.format("http://%s/api/rooms/1/", ip_address), 
+		"user": util.format("http://%s/api/users/1/", ip_address)
 	},
 
 	"headers": { "Content-Type": "application/json" }   

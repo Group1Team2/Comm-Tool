@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'comm',
     'rest_framework',
     'gunicorn',
+    'corsheaders',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -49,7 +50,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 )
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'group2.urls'
 
@@ -92,3 +97,13 @@ REST_FRAMEWORK = {
     'PAGINATE_BY_PARAM': 'page_size',  # Allow client to override, using `?page_size=xxx`.
     'MAX_PAGINATE_BY': 100             # Maximum limit allowed when using `?page_size=xxx`.
 }
+
+CORS_ALLOW_HEADER = (
+    'x-requested-with',
+    'content-type',
+    'accept',
+    'origin',
+    'authorization',
+    'x-csrftoken',
+    'accept-encoding',
+)
