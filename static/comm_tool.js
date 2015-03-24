@@ -4,22 +4,22 @@ var socket = io('http://' + server_host + ':3000');
 
 var username = random_user();
 
-// Get the messages from the API and add to the page
-$.getJSON('http://' + server_host + '/api/messages/?format=json', function(json) {
+// // Get the messages from the API and add to the page
+// $.getJSON('http://' + server_host + '/api/messages/?format=json', function(json) {
 
-  json.results.forEach(function(msg){
-    add_message(msg.text);
-  });
+//   json.results.forEach(function(msg){
+//     add_message(msg.text, 1);
+//   });
 
-});
+// });
 
 // When you receive a message, add it to the page
 socket.on('msg', function(msg){
   add_message(msg);
 });
 
-function add_message(msg) {
-  $('div#messagecontent').append(msg + '<br>');
+function add_message(msg, target) {
+  $('div#message_' + target).append(msg + '<br>');
 }
 
 // Called when button is clicked
@@ -45,3 +45,5 @@ $(document).keypress(function(e) {
         display();
     }
 });
+
+$.getJSON('http://' + server_host + '/api/rooms/?format=json', function(data) { console.log(data.results) });
