@@ -10,7 +10,6 @@ class User(models.Model):
 
 	name = models.CharField(max_length=50)
 	online = models.BooleanField(default=False)
-	rooms = models.ManyToManyField(Room)
 
 # Need to add user relationship for second iteration
 class Room(models.Model):
