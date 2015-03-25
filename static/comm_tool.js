@@ -53,12 +53,12 @@ $(document).keypress(function(e) {
 
 var mobile_nav = {
   'message': function() {
-    $('div.sidebar').addClass('hidden-xs');
-    $('div.message').removeClass('hidden-xs');
+    $('div.sidebar').addClass('hidden-xs hidden-sm');
+    $('div.message').removeClass('hidden-xs hidden-sm');
   },
   'sidebar': function() {
-    $('div.message').addClass('hidden-xs');
-    $('div.sidebar').removeClass('hidden-xs');
+    $('div.message').addClass('hidden-xs hidden-sm');
+    $('div.sidebar').removeClass('hidden-xs hidden-sm');
   }
 }
 
