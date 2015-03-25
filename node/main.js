@@ -25,8 +25,6 @@ var message_template = {
 var namespaces = [];
 client.registerMethod("getRoomData", room_data_endpoint, "GET");
 client.methods.getRoomData(function(roomResults, response) {
-	//console.log(data);
-	//console.log(response);
 	roomResults.results.forEach(function(thisRoom) {
 		var aRoom = thisRoom.name;
 		console.log(aRoom);
