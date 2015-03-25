@@ -30,7 +30,7 @@
 
     <div id="color_bar"></div>
 
-    <div id="sidebar" class="col-xs-3 col-lg-2">
+    <div id="sidebar" class="col-xs-12 col-md-3 col-lg-2 sidebar">
       <h4 class="sidebar_description">Chatting Room</h4>
       <div id="room-list" class="list-group">
         <a href="#" class="list-group-item room-add">
@@ -55,9 +55,9 @@
     </div>	
 
 
-    <div id="messages" class="col-xs-9 col-xs-offset-3 col-lg-10 col-lg-offset-2">
+    <div id="messages" class="col-xs-12 col-lg-10 col-lg-offset-2 message">
 
-      <div id="message_bar" class="col-lg-10 col-xs-9">
+      <div id="message_bar" class="col-lg-10 col-xs-12 message">
         <div class="input-group input-group-lg">
           <input id="text" type="text" class="form-control" placeholder="Enter a message..."> 
           <span class="input-group-btn dropup">
@@ -75,11 +75,12 @@
         </div>
       </div>
 
-    <div id="top_bar" style="border-bottom: 1px solid lightgray; padding-top: 10px;" class="col-lg-10 col-xs-9">
+    <div id="top_bar" style="border-bottom: 1px solid lightgray; padding-top: 10px;" class="col-lg-10 col-xs-12 message">
 
       <span class="glyphicon glyphicon-comment padded-icon" style="font-size: 40px; color: gray;" aria-hidden="true"></span>
       <span style="font-size: 40px; bottom: 8px; left: 10px; font-weight: bold; position: relative; color: gray;">General</span>
       <div class="dropdown" style="position: absolute; right: 10px; padding-right: 20px; top: 8px; font-size: 30px; color: gray;" >
+        <button type="button" id="menu_button" class="btn hidden-md hidden-lg hidden-xl" onclick="mobile_nav.sidebar()" >Menu</button>
         <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
           Options
           <span class="caret"></span>

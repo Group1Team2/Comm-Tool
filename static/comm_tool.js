@@ -51,7 +51,21 @@ $(document).keypress(function(e) {
 });
 
 
+var mobile_nav = {
+  'message': function() {
+    $('div.sidebar').addClass('hidden-xs');
+    $('div.message').removeClass('hidden-xs');
+  },
+  'sidebar': function() {
+    $('div.message').addClass('hidden-xs');
+    $('div.sidebar').removeClass('hidden-xs');
+  }
+}
+
 function switch_room(target_room){
+
+  // Mobile navigation
+  mobile_nav.message();
 
   global_room_list.results.forEach( function(room){
 
@@ -131,5 +145,7 @@ $(document).ready(function(){
   populate_user_list();
 
   $('div#room-list').on('click', 'a', function(){ switch_room( $(this).attr('id') ) } );
+
+  mobile_nav.sidebar();
 
 });
