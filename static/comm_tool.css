@@ -1,3 +1,7 @@
+/*@media (max-width:1000px) {
+    body{font-size: 24px;}
+}*/
+
 div#wrapper {
   padding-top: 10px;
 }
@@ -35,6 +39,7 @@ div#sidebar {
   border-right: 1px solid lightgray;
   position: fixed;
   background-color: aliceblue;
+  overflow-y: scroll;
 }
 
 .user {
