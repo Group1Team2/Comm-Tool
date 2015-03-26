@@ -45,14 +45,14 @@ client.methods.getRoomData(function(roomResults, response) {
 	});
 });
 
-function broadcast(msg, activeNamespaces) {
-	activeNamespaces.forEach(function(aNamespace) {
-		aNamespace.emit('msg', msg);
-	});
-}
+//function broadcast(msg, activeNamespaces) {
+//	activeNamespaces.forEach(function(aNamespace) {
+//		aNamespace.emit('msg', msg);
+//	});
+//}
 
 // Start the server
-http.listen(3000, function(){
+http.listen(3000, function() {
 	console.log('Starting NodeJS server');
 	console.log('listening on 3000');
 });

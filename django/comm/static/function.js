@@ -6,28 +6,14 @@
 
   // This is temporary code to test the namespaces
   // Get the rooms from the API
-  var promptMessage = "These are your possible rooms: ";
-  var roomName;
-  //promptMessage = promptMessage + " big room";
   $.getJSON('http://' + server_host + ':8000/api/rooms/?format=json', function(theseRooms) {
+    var promptMessage = "These are your possible rooms: ";
     theseRooms.results.forEach(function(newRoom) {
-      //promptMessage += newRoom.name;
-      //var aMessage = prompt("This works");
-        roomName = newRoom.name;
-        promptMessage = promptMessage + "\n" + roomName;
-      //var aMessage = prompt(promptMessage);
+      promptMessage = promptMessage + "\n" + newRoom.name;
     });
+    var thisNameSpace = prompt(promptMessage);
+    //var socket = io('http://' + server_host + ':3000/Test');
   });
-
-  //var thisNameSpace = prompt("Please enter '1' or '2'. One is for Test. Two is for Another Room. Cancelling or nonsense puts you in Test.", "1");
-  var thisNameSpace = prompt(promptMessage);
-  
-  if (thisNameSpace != "2") {
-    var socket = io('http://' + server_host + ':3000/Test');
-  }
-  else {
-    var socket = io('http://' + server_host + ':3000/Another Room');
-  }
 
   var username = random_user();
 
