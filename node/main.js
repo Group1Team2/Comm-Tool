@@ -26,20 +26,25 @@ var message_template = {
 
 var room_data;
 var room_url = 'http://localhost/api/rooms/?format=json';
-client.get(room_url,function(data,response){ 
+client.get(room_url,function(data,response){
+	namespaces = {}; 
 	data.results.forEach(function(room){
-		io.of(util.format('/%s', room.id))
+		namespaces[room.id] = io.of(util.format('/%s', room.id))
 		.on('connection', function(socket) {
 			console.log(util.format('someone connected to %s', room.id));
+
 			socket.on('msg',function(msg){
-				console.log(util.format('%s : %s', msg.username, msg.value))
-				socket.emit('msg', msg)
+				console.log(util.format('room %s - %s : %s', room.id, msg.username, msg.value))
+				namespaces[room.id].emit('msg', msg);
 			});
+
+			socket.on('disconnect',function(){
+				console.log(util.format('someone disconnected from %s', room.id ));
+			});
+
 		});
 	});
 });
-
-console.log(io.nsps);
 
 	// data.results.forEach(function(room){
 	// io.of('/' + room.id).on('connection', function(socket){
