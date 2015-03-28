@@ -4,6 +4,8 @@ global_user_list = [];
 
 var server_host = window.location.hostname;
 
+var base_url = 'http://' + server_host + ':3000/';
+
 var socket = io('http://' + server_host + ':3000');
 
 var username = random_user();
@@ -17,23 +19,37 @@ var username = random_user();
 
 // });
 
-// When you receive a message, add it to the page
-socket.on('msg', function(msg){
-  add_message(msg);
+sockets = []
+$.getJSON('http://' + server_host + '/api/rooms/',function(data){
+  data.results.forEach(function(room){
+    sockets.push(io(base_url + room.id));
+  });
+  sockets[0].on('msg', function(msg){
+    add_message(msg.value, 5);
+  });
 });
 
+// // When you receive a message, add it to the page
+// sockets[0].on('msg', function(msg){
+//   add_message(msg);
+// });
+
 function add_message(msg, target) {
-  $('div#message_' + target).append(msg + '<br>');
+  $('div#room-' + target).append(msg + '<br>');
+}
+
+function visible_namespace() {
+  return Number($('div.messagecontent').filter(':visible').attr('id').replace('room-',''));
 }
 
 // Called when button is clicked
 function display() {
   console.log('sending message...');
   var message = {
-    'username': get_user_name(),
+    'username': user_name,
     'value': $('input#text').val()
   }
-  socket.emit('msg', message);
+  sockets[0].emit('msg', message);
   $('input#text').val('');
 }
 
@@ -108,7 +124,7 @@ function populate_room_list() {
       $('div#message_list').append( $('<div />', {
         'class': 'messagecontent',
         'id': 'room-' + room.id,
-        'text': room.id,
+        'text': '',
       }));
 
     });
@@ -140,6 +156,8 @@ function populate_user_list() {
 
 // MAIN
 $(document).ready(function(){
+
+  user_name = random_user();
 
   populate_room_list();
   populate_user_list();
