@@ -116,7 +116,6 @@ function get_message_data(room_id) {
 
 function populate_room_list() {
 
-
   $.getJSON('http://' + server_host + '/api/rooms/?format=json', function(data) { 
     global_room_list = data;
     data.forEach(function(room) {

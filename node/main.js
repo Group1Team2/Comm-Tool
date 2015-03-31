@@ -11,14 +11,14 @@ var client = new Client();
 var room_url = 'http://localhost/api/rooms/?format=json';
 client.get(room_url,function(data,response){
 	namespaces = {}; 
-	data.results.forEach(function(room){
+	data.forEach(function(room){
 		namespaces[room.id] = io.of(util.format('/%s', room.id))
 		.on('connection', function(socket) {
 			console.log(util.format('someone connected to %s', room.id));
 
 			socket.on('msg',function(msg){
 				namespaces[room.id].emit('msg', msg);
-				messages.save(room.id, msg.value);
+				messages.save(room.id, util.format('%s: %s', msg.username, msg.value));
 			});
 
 			socket.on('disconnect',function(){
