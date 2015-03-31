@@ -3,26 +3,14 @@ global_room_list = [];
 global_user_list = [];
 
 var server_host = window.location.hostname;
-
 var base_url = 'http://' + server_host + ':3000/';
-
 var socket = io('http://' + server_host + ':3000');
 
 var username = random_user();
 
-
-// // Get the messages from the API and add to the page
-// $.getJSON('http://' + server_host + '/api/messages/?format=json', function(json) {
-
-//   json.results.forEach(function(msg){
-//     add_message(msg.text, 1);
-//   });
-
-// });
-
 sockets = {};
 $.getJSON('http://' + server_host + '/api/rooms/',function(data){
-  data.results.forEach(function(room){
+  data.forEach(function(room){
     var socket = io(base_url + room.id);
     socket.on('msg', function(msg) {
       if (room.id != visible_namespace()) {
@@ -34,9 +22,6 @@ $.getJSON('http://' + server_host + '/api/rooms/',function(data){
   });
 });
 
-// sockets[0].on('msg', function(msg){
-//   add_message(msg.value, visible_namespace());
-// });
 
 function increment_badge(room_id){
   var badge = $('div#room-list a').filter( function(){ return $(this).attr('id') === 'room-' + room_id } ).children().filter('.badge');
@@ -92,12 +77,13 @@ var mobile_nav = {
   }
 }
 
+
 function switch_room(target_room){
 
   // Mobile navigation
   mobile_nav.message();
 
-  global_room_list.results.forEach( function(room){
+  global_room_list.forEach( function(room){
 
     var room_num = 'room-' + room.id;
     if (room_num === target_room) {
@@ -115,15 +101,30 @@ function switch_room(target_room){
 
 }
 
+function get_message_data(room_id) {
+
+    var message_endpoint = 'http://' + server_host + '/api/messages/?format=json';
+    $.getJSON(message_endpoint, function(data){
+      data.forEach(function(msg){
+        message_room = Number(msg.room.split('/api/rooms/')[1].slice(0,-1));
+        if (message_room === room_id) { add_message(msg.text, room_id) };
+      });
+    });
+
+}
+
+
 function populate_room_list() {
+
+
   $.getJSON('http://' + server_host + '/api/rooms/?format=json', function(data) { 
     global_room_list = data;
-    data.results.forEach(function(room) {
+    data.forEach(function(room) {
 
       var room_link = $('<a />', {
         'href': '#',
         'id': 'room-' + room.id,
-        'class': 'list-group-item room-link',
+        'class': 'list-group-item room-link'
       })
       .append( $('<span />', {
         'class': 'glyphicon glyphicon-comment padded-icon',
@@ -131,8 +132,7 @@ function populate_room_list() {
       }))
       .append(room.name)
       .append( $('<span />',{
-        'class': 'badge',
-        // 'text': 1
+        'class': 'badge'
       }));
 
       $('div#room-list').append(room_link)
@@ -144,7 +144,11 @@ function populate_room_list() {
         'text': '',
       }));
 
+      get_message_data(room.id);
+
     });
+
+    switch_room('room-' + global_room_list[0].id);
 
   });
 }
@@ -152,7 +156,7 @@ function populate_room_list() {
 function populate_user_list() {
   $.getJSON('http://' + server_host + '/api/users/?format=json', function(data) { 
     global_user_list = data;
-    data.results.forEach(function(user) {
+    data.forEach(function(user) {
       var user_link = $('<li />', {
         'class': user.online ? 'user' : 'user disabled',
         'html': 

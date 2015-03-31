@@ -8,23 +8,6 @@ var util = require('util');
 
 var client = new Client();
 
-// maybe we don't need to use this?
-var ip_address = os.networkInterfaces()['eth1'][0].address;
-
-var msg_endpoint = 'http://localhost/api/messages/';
-
-var message_template = {
-
-	"data": {
-		"at_message": false, 
-		"room": "http://localhost/api/rooms/1/", 
-		"user": "http://localhost/api/users/1/"
-	},
-
-	"headers": { "Content-Type": "application/json" }   
-}
-
-var room_data;
 var room_url = 'http://localhost/api/rooms/?format=json';
 client.get(room_url,function(data,response){
 	namespaces = {}; 
@@ -34,8 +17,8 @@ client.get(room_url,function(data,response){
 			console.log(util.format('someone connected to %s', room.id));
 
 			socket.on('msg',function(msg){
-				console.log(util.format('room %s - %s : %s', room.id, msg.username, msg.value))
 				namespaces[room.id].emit('msg', msg);
+				messages.save(room.id, msg.value);
 			});
 
 			socket.on('disconnect',function(){
@@ -46,31 +29,39 @@ client.get(room_url,function(data,response){
 	});
 });
 
-	// data.results.forEach(function(room){
-	// io.of('/' + room.id).on('connection', function(socket){
-	// 	console.log(util.format('someone connected to %s', room.id));
-	// 	socket.on('msg', function(msg) {
-	// 		io.of('/' + room_id).emit('msg', msg);
+var messages = {
+	'save': function(room_id, message) {
+		message_template = {
+			data: {
+				'at_message': false,
+				'room': util.format('http://localhost/api/rooms/%s/', room_id),
+				'user': util.format('http://localhost/api/users/%s/', 7),
+				'text': message 
+			},
+			headers: { 'Content-Type': 'application/json' }
+		};
+		client.post('http://localhost/api/messages/', message_template, function(data,response) {
+			console.log( util.format('(%s) Room %s : "%s"', response.statusCode, room_id, message) );
+		});
+	}
+}
 
-// // WebSocket stuff
-// var rooms = ["room1", "room2"];
-// var namespaces = [];
-// rooms.forEach(function(aRoom) {
-// 	namespaces[aRoom] = io.of('/' + aRoom);
-// 	namespaces[aRoom].on('connection', function(socket) {
-// 		console.log('someone connected to ' + aRoom);
+var rooms = {
+	'save': function(name, description, public) {
+		message_template = {
+			data: {
+				'name': name,
+				'description': description,
+				'public': true 
+			},
+			headers: { 'Content-Type': 'application/json' }
+		};
+		client.post('http://localhost/api/messages', message_template, function(data,response) {
+			console.log(response.statusCode);
+		});
+	}
+}
 
-// 		socket.on('disconnect', function(){
-// 			console.log('someone disconnected from ' + aRoom);
-// 		});
-
-// 		socket.on('msg', function(msg) {
-// 			namespaces[aRoom].emit('msg', msg);
-// 			message_template.data.text = msg;
-// 			client.post(msg_endpoint, message_template, function(data,response) { console.log(msg) });
-// 		});
-// 	});
-// });
 
 function broadcast(msg, activeNamespaces) {
 	activeNamespaces.forEach(function(aNamespace) {
