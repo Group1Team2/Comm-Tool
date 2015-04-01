@@ -41,6 +41,10 @@ function visible_namespace() {
   }
 }
 
+// function create_team(){
+//   $('#add_team_modal').modal('show');
+// }
+
 // Called when button is clicked
 function display() {
   console.log('sending message...');
@@ -82,6 +86,11 @@ function switch_room(target_room){
 
   // Mobile navigation
   mobile_nav.message();
+
+  var room_id = Number(target_room.replace('room-',''));
+  var room_name = _.filter(global_room_list, function(obj){ return (obj.id === room_id) })[0].name;
+
+  $('span#room_title').text(room_name);
 
   global_room_list.forEach( function(room){
 
@@ -180,7 +189,11 @@ $(document).ready(function(){
   populate_room_list();
   populate_user_list();
 
-  $('div#room-list').on('click', 'a', function(){ switch_room( $(this).attr('id') ) } );
+  $('div#room-list').on('click', 'a', function(){ 
+    if ($(this).attr('id') != 'create-room' ) {
+      switch_room( $(this).attr('id') );
+    }
+  });
 
   mobile_nav.sidebar();
 
