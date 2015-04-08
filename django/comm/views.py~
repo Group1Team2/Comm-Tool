@@ -33,7 +33,7 @@ class UserRoomViewSet(viewsets.ModelViewSet):
         serializer_class = UserRoomSerializer
 
 class UserRoomDataViewSet(viewsets.ReadOnlyModelViewSet):
-	queryset = UserRoom.objects.all()
+	queryset = Message.objects.all()
 	serializer_class = UserRoomDataSerializer
 
 #class MessageDataViewSet(generics.ListAPIView):
