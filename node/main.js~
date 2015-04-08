@@ -22,6 +22,7 @@ globalNamespace = io.of(util.format('/globalNamespace'))
 	});
 });
 
+
 var room_url = 'http://localhost/api/rooms/?format=json';
 client.get(room_url,function(data,response){
 	namespaces = {}; 
