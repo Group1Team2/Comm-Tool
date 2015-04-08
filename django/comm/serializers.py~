@@ -1,5 +1,5 @@
 from comm.models import User, Room, Message, UserRoom
-from rest_framework import routers, serializers, viewsets
+from rest_framework import routers, serializers, viewsets, filters
 
 # Get list of online users
 # Get last 100 messages
@@ -24,13 +24,6 @@ class UserRoomSerializer(serializers.HyperlinkedModelSerializer):
                 model = UserRoom
                 fields = ('user', 'room')
 
-class UserRoomDataSerializer(serializers.HyperlinkedModelSerializer):
-	user = UserSerializer()
-	room = RoomSerializer()
-       class Meta:
-                model = UserRoom
-                fields = ('user', 'room')
-
 class MessageDataSerializer(serializers.HyperlinkedModelSerializer):
 	# This serializer will serialize all of the messages in the message model 
 	# and all of the data associated with those messages.  The data from
@@ -40,6 +33,13 @@ class MessageDataSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Message
 		fields = ('text', 'time', 'at_message', 'room', 'user')
+
+class UserRoomDataSerializer(serializers.HyperlinkedModelSerializer):
+	user = UserSerializer()       
+	room = RoomSerializer()	
+	class Meta:
+                model = UserRoom
+                fields = ('user', 'room')
 
 # class PaginatedMessageSerializer(serializers.PaginationSerializer):
 # 	class Meta:
