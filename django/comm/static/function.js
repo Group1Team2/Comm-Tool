@@ -61,17 +61,17 @@ $('div#sidebar').removeClass('hidden-xs');
 
   // Generate random user
   function random_user() {
-  var random_index = Math.floor( Math.random() * 5 ) + 1;
-  var random_room = Math.floor( Math.random() * 5 ) + 1;
-  var newUserRoom = {
-			data: {
-				'room': random_room,
-				'user': random_user,
-			},
-			headers: { 'Content-Type': 'application/json' }
-		};
-  globalNamespace.emit('msg', newUserRoom);
-  return "User " + random_index;
+	  var random_index = Math.floor( Math.random() * 5 ) + 1;
+	  var random_room = Math.floor( Math.random() * 5 ) + 1;
+	  var newUserRoom = {
+		data: {
+			'room': random_room,
+			'user': random_user,
+		},
+		headers: { 'Content-Type': 'application/json' }
+	  };
+	  globalNamespace.emit('msg', newUserRoom);
+	  return "User " + random_index;
   }
   // Add a new message whenever the user presses the enter key
   $(document).keypress(function(e) {

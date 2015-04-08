@@ -37,6 +37,7 @@ $('div#sidebar').removeClass('hidden-xs');
 }
   var server_host = window.location.hostname;
   var socket = io('http://' + server_host + ':3000');
+  var globalNamespace = io('http://' + server_host + ':3000/globalNamespace');
   var username = random_user();
   // Get the messages from the API and add to the page
   $.getJSON('http://' + server_host + ':8000/api/messages/?format=json', function(json) {
@@ -60,7 +61,16 @@ $('div#sidebar').removeClass('hidden-xs');
 
   // Generate random user
   function random_user() {
-  var random_index = Math.floor( Math.random() * 100 ) + 1;
+  var random_index = Math.floor( Math.random() * 5 ) + 1;
+  var random_room = Math.floor( Math.random() * 5 ) + 1;
+  var newUserRoom = {
+	data: {
+		'room': random_room,
+		'user': random_user,
+	},
+	headers: { 'Content-Type': 'application/json' }
+  };
+  globalNamespace.emit('msg', newUserRoom);
   return "User " + random_index;
   }
   // Add a new message whenever the user presses the enter key
