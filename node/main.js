@@ -8,6 +8,22 @@ var util = require('util');
 
 var client = new Client();
 
+// This is the data format for creating a new user to room relationship
+var userroom = {
+	'save': function(user_id, room_id) {
+		message_template = {
+			data: {
+				'room': util.format('http://localhost/api/rooms/%s/', room_id),
+				'user': util.format('http://localhost/api/users/%s/', user_id),
+			},
+			headers: { 'Content-Type': 'application/json' }
+		};
+		client.post('http://localhost/api/messages/', message_template, function(data,response) {
+			console.log( util.format('(%s) Room %s : "%s"', response.statusCode, room_id) );
+		});
+	}
+}
+
 var globalNamespace = io.of('/globalNamespace');
 globalNamespace.on('connection', function(socket) {
 	console.log(util.format('someone connected to global'));
@@ -42,21 +58,6 @@ client.get(room_url,function(data,response){
 		});
 	});
 });
-
-var userroom = {
-	'save': function(user_id, room_id) {
-		message_template = {
-			data: {
-				'room': util.format('http://localhost/api/rooms/%s/', room_id),
-				'user': util.format('http://localhost/api/users/%s/', user_id),
-			},
-			headers: { 'Content-Type': 'application/json' }
-		};
-		client.post('http://localhost/api/messages/', message_template, function(data,response) {
-			console.log( util.format('(%s) Room %s : "%s"', response.statusCode, room_id) );
-		});
-	}
-}
 
 var messages = {
 	'save': function(room_id, message) {

@@ -8,7 +8,7 @@ var util = require('util');
 
 var client = new Client();
 
-var globalNamespace = io.of('/globalNamespace);
+var globalNamespace = io.of('/globalNamespace');
 globalNamespace.on('connection', function(socket) {
 	console.log(util.format('someone connected to global'));
 

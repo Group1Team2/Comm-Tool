@@ -70,7 +70,7 @@ $('div#sidebar').removeClass('hidden-xs');
 	  var this_user = 5;
 	  var this_room = 6;
 	  var newUserRoom = {
-		data: {
+		'data': {
 			'room': this_user,
 			'user': this_room,
 		},
