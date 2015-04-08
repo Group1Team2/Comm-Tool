@@ -8,8 +8,8 @@ var util = require('util');
 
 var client = new Client();
 
-globalNamespace = io.of(util.format('/globalNamespace'))
-.on('connection', function(socket) {
+var globalNamespace = io.of('/globalNamespace');
+globalNamespace.on('connection', function(socket) {
 	console.log(util.format('someone connected to global'));
 
 	socket.on('msg',function(msg){
@@ -53,7 +53,7 @@ var userroom = {
 			headers: { 'Content-Type': 'application/json' }
 		};
 		client.post('http://localhost/api/messages/', message_template, function(data,response) {
-			console.log( util.format('(%s) Room %s : "%s"', response.statusCode, room_id, message) );
+			console.log( util.format('(%s) Room %s : "%s"', response.statusCode, room_id) );
 		});
 	}
 }

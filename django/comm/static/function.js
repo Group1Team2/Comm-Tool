@@ -59,20 +59,26 @@ $('div#sidebar').removeClass('hidden-xs');
   $('input#text').val('');
   }
 
-  // Generate random user
+  // Generate random user and room
   function random_user() {
-	  var random_index = Math.floor( Math.random() * 5 ) + 1;
-	  var random_room = Math.floor( Math.random() * 5 ) + 1;
+	  var random_index = Math.floor( Math.random() * 100 ) + 1;
+	  return "User " + random_index;
+  }
+
+  // Generate random user and room
+  function add_user() {
+	  var this_user = 5;
+	  var this_room = 6;
 	  var newUserRoom = {
 		data: {
-			'room': random_room,
-			'user': random_user,
+			'room': this_user,
+			'user': this_room,
 		},
 		headers: { 'Content-Type': 'application/json' }
 	  };
 	  globalNamespace.emit('msg', newUserRoom);
-	  return "User " + random_index;
   }
+
   // Add a new message whenever the user presses the enter key
   $(document).keypress(function(e) {
     if(e.which == 13) {
