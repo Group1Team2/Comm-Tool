@@ -39,6 +39,3 @@ class Message(models.Model):
 class UserRoom(models.Model):
 	user = models.ForeignKey(User)
 	room = models.ForeignKey(Room)
-
-	class Meta:
-		unique_together = ('user', 'room')

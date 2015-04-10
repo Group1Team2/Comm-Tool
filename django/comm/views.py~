@@ -20,7 +20,7 @@ class RoomViewSet(viewsets.ModelViewSet):
 
 class MessageFilter(django_filters.FilterSet):
 	user = django_filters.CharFilter(name="user__name")
-	room = django_filters.CharFilter(name="room__name")
+	user = django_filters.CharFilter(name="room__name")
 	class Meta:
 		model = Message
 		fields = ['user', 'room']
