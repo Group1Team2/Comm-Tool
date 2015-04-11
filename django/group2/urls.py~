@@ -9,7 +9,6 @@ router.register(r'rooms', views.RoomViewSet)
 router.register(r'messages', views.MessageViewSet)
 router.register(r'messagedata', views.MessageDataViewSet)
 router.register(r'roomuser', views.UserRoomViewSet)
-router.register(r'roomuserdata', views.UserRoomDataViewSet)
 
 urlpatterns = patterns('',
     url(r'^api/', include(router.urls)),
