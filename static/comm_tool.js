@@ -12,6 +12,7 @@ sockets = {};
 $.getJSON('http://' + server_host + '/api/rooms/',function(data){
   data.forEach(function(room){
     var socket = io(base_url + room.id);
+    socket.set('nickname', user);
     socket.on('msg', function(msg) {
       if (room.id != visible_namespace()) {
         increment_badge(room.id);
