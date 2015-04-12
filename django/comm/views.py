@@ -54,3 +54,15 @@ class UserRoomDataViewSet(viewsets.ReadOnlyModelViewSet):
 	queryset = UserRoom.objects.all()
 	serializer_class = UserRoomDataSerializer
 	filter_class = UserRoomFilter
+
+#https://xx/api/message?text=what&user=what&time=what
+class MessageListView(generics.ListAPIView):
+	queryset=Message.object.all()
+	serializer=MessageSerializer
+  	filter_backends=(filter.SearchFilter,)
+	search_fields=('text','time')
+
+	
+
+
+
