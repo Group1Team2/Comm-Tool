@@ -173,7 +173,7 @@ function populate_user_list() {
         })
         .append( $('<span />', {
           'class': 'glyphicon glyphicon-user padded-icon'
-          })).append(user.name)
+          })).append(user.username)
       })
 
       $('ul.user_list').append(user_link);
