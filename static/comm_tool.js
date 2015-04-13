@@ -3,9 +3,19 @@
 function createteam(){
 $("#myModal").modal('show');
 }
-//show the search bar
+
+//toggle the search bar
 function search_show(){
-$('div#message_search').removeClass('hidden');
+
+  // search bar is hidden
+  if ($('div#message_search').attr('class').indexOf('hidden') == -1) {
+    $('div#message_search').addClass('hidden');
+    $('div.messagecontent').css('padding-top', '70px');
+  } 
+  else {
+    $('div#message_search').removeClass('hidden');
+    $('div.messagecontent').css('padding-top', '130px');
+  }
 }
 
 // global state variables

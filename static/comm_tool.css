@@ -11,7 +11,8 @@ z-index: 1000;
 background-color: white;
 }
 div#message_search {
-padding-bottom: 15px;
+	padding-top: 10px;
+	padding-bottom: 15px;
 }
 .padded-icon {
 padding-right: 10px;
@@ -73,8 +74,8 @@ background-color: white;
 z-index: 1000;
 padding-right: 35px;
 }
-div#messagecontent {
-padding-top: 110px;
+div.messagecontent {
+	padding-top: 70px;
 }
 div#mymodal{
 z-index: 1000000;
