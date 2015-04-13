@@ -8,7 +8,6 @@ var util = require('util');
 
 var client = new Client();
 
-<<<<<<< HEAD
 var room_url = 'http://localhost/api/rooms/?format=json';
 client.get(room_url,function(data,response){
 	namespaces = {}; 
@@ -69,7 +68,7 @@ function broadcast(msg, activeNamespaces) {
 		aNamespace.emit('msg', msg);
 	});
 }
-=======
+
 var msg_endpoint = 'http://localhost:8000/api/messages/'
 
 var message_template = {
@@ -95,7 +94,6 @@ io.on('connection', function(socket) {
 		client.post(msg_endpoint, message_template, function(data,response) { console.log(msg) });
 	});
 });
->>>>>>> a0cbe895506748f001b043fda92e4380b472976d
 
 // Start the server
 http.listen(3000, function(){

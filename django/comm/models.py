@@ -1,7 +1,5 @@
 from django.db import models
-<<<<<<< HEAD
 from django.contrib.auth.models import User
-=======
 
 class User(models.Model):
 
@@ -14,7 +12,6 @@ class User(models.Model):
 	name = models.CharField(max_length=50)
 	online = models.BooleanField(default=False)
 	#rooms = models.ManyToManyField(Room)
->>>>>>> a0cbe895506748f001b043fda92e4380b472976d
 
 # Need to add user relationship for second iteration
 class Room(models.Model):
