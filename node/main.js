@@ -15,21 +15,31 @@ var users = [];
 var global_namespace = io.of('/');
 global_namespace.on('connection', function(socket){
 	var user;
-	socket.on('join', function(msg) { 
+	socket.on('user', function(msg) { 
 		console.log(msg);
 		user = msg.username;
 		users.push(user);
+		global_namespace.emit('user', {'username': user, 'action': 'connected' });
 		console.log( util.format('%s connected', user) );
 	});
 	socket.on('disconnect', function(){
 		users.pop(user);
 		console.log( util.format('%s disconnected', user) );
-		// console.log(util.format('%s disconnected', users.pop(user)));
+		global_namespace.emit('user', {'username': user, 'action': 'disconnected' });
 	})
 });
 
+
 // Make a REST call to get the currently connected users
+
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
 app.get('/users', function(req,res){
+	res.header
 	res.send(_.unique(users));
 });
 
