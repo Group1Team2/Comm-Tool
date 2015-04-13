@@ -212,5 +212,20 @@ $(document).ready(function(){
 
     
 
-
+/* this cannot work for js
+$(function(){
+        $("#upload").upload({
+            action: "", //upload address
+            fileName: "file",    //filename
+            params: {},         //
+            accept: ".jpg,.png",     //filetypw
+            complete: function () {  //complete upload
+                alert("complete");
+            },
+            submit: function () {   //before submit
+                alert("submit");
+            }
+        });
+    })
+*/
 
