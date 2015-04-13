@@ -4,15 +4,18 @@ global_user_list = [];
 
 var server_host = window.location.hostname;
 var base_url = 'http://' + server_host + ':3000/';
-var socket = io('http://' + server_host + ':3000');
+var global = io('http://' + server_host + ':3000');
 
-var username = random_user();
+console.log('username: ' + user);
+
+global.emit('join', {
+  'username': user,
+});
 
 sockets = {};
 $.getJSON('http://' + server_host + '/api/rooms/',function(data){
   data.forEach(function(room){
     var socket = io(base_url + room.id);
-    socket.set('nickname', user);
     socket.on('msg', function(msg) {
       if (room.id != visible_namespace()) {
         increment_badge(room.id);

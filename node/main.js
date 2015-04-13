@@ -5,8 +5,34 @@ var io = require('socket.io')(http);
 var Client = require('node-rest-client').Client;
 var os = require('os');
 var util = require('util');
+var _ = require('lodash');
 
 var client = new Client();
+
+// We should stash the username (ID?) of everyone connected to the global namespace here
+var users = [];
+
+var global_namespace = io.of('/');
+global_namespace.on('connection', function(socket){
+	var user;
+	socket.on('join', function(msg) { 
+		console.log(msg);
+		user = msg.username;
+		users.push(user);
+		console.log( util.format('%s connected', user) );
+	});
+	socket.on('disconnect', function(){
+		users.pop(user);
+		console.log( util.format('%s disconnected', user) );
+		// console.log(util.format('%s disconnected', users.pop(user)));
+	})
+});
+
+// Make a REST call to get the currently connected users
+app.get('/users', function(req,res){
+	res.send(_.unique(users));
+});
+
 
 var room_url = 'http://localhost/api/rooms/?format=json';
 client.get(room_url,function(data,response){
@@ -14,19 +40,19 @@ client.get(room_url,function(data,response){
 	data.forEach(function(room){
 		namespaces[room.id] = io.of(util.format('/%s', room.id))
 		.on('connection', function(socket) {
-			console.log(util.format('someone connected to %s', room.id));
-
+			// console.log(util.format('someone connected to %s', room.id));
 			socket.on('msg',function(msg){
 				namespaces[room.id].emit('msg', msg);
 				messages.save(room.id, util.format('%s: %s', msg.username, msg.value));
 			});
 
 			socket.on('disconnect',function(){
-				console.log(util.format('someone disconnected from %s', room.id ));
+				// console.log(util.format('someone disconnected from %s', room.id ));
 			});
 
 		});
 	});
+
 });
 
 var messages = {
