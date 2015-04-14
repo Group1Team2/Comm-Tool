@@ -2,7 +2,7 @@ import django_filters
 from django.shortcuts import render
 from django.http import HttpResponse
 from comm.models import User, Room, Message, UserRoom
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, filters
 from comm.serializers import UserSerializer, RoomSerializer, MessageSerializer, MessageDataSerializer, UserRoomSerializer, UserRoomDataSerializer
 
 # Return the main chat room
@@ -55,14 +55,9 @@ class UserRoomDataViewSet(viewsets.ReadOnlyModelViewSet):
 	serializer_class = UserRoomDataSerializer
 	filter_class = UserRoomFilter
 
-#https://xx/api/message?text=what&user=what&time=what
-class MessageListView(generics.ListAPIView):
-	queryset=Message.object.all()
-	serializer=MessageSerializer
-  	filter_backends=(filter.SearchFilter,)
+class MessageSearchSet(viewsets.ReadOnlyModelViewSet):
+	queryset=Message.objects.all().order_by('time')
+	serializer_class=MessageDataSerializer
+  	filter_backends=(filters.SearchFilter,)
 	search_fields=('text','time')
-
-	
-
-
 
