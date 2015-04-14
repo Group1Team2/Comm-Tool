@@ -4,10 +4,12 @@ from django.http import HttpResponse
 from comm.models import User, Room, Message, UserRoom
 from rest_framework import viewsets, generics
 from comm.serializers import UserSerializer, RoomSerializer, MessageSerializer, MessageDataSerializer, UserRoomSerializer, UserRoomDataSerializer
+import random
 
 # Return the main chat room
 def index(request):
-    return render(request, 'comm/index.html')
+	context = {'user': random.choice(User.objects.all())}
+	return render(request, 'comm/index.html', context)
 
 ## Django REST framework classes...
 class UserViewSet(viewsets.ModelViewSet):
@@ -46,8 +48,8 @@ class UserRoomFilter(django_filters.FilterSet):
 		fields = ['user', 'room']
 
 class UserRoomViewSet(viewsets.ModelViewSet):
-        queryset = UserRoom.objects.all()
-        serializer_class = UserRoomSerializer
+	queryset = UserRoom.objects.all()
+	serializer_class = UserRoomSerializer
 	filter_class = UserRoomFilter
 
 class UserRoomDataViewSet(viewsets.ReadOnlyModelViewSet):

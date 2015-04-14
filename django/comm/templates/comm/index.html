@@ -1,7 +1,15 @@
 <!doctype html>
 <html>
 <head>
+
+{% if user %}
+<script type="text/javascript">
+  var user = '{{ user.username }}';
+</script>
+{% endif %}
+
 <title>Communication tool</title>
+
   <!-- jQuery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 

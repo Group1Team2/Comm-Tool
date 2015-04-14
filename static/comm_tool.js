@@ -4,9 +4,25 @@ global_user_list = [];
 
 var server_host = window.location.hostname;
 var base_url = 'http://' + server_host + ':3000/';
-var socket = io('http://' + server_host + ':3000');
+var global = io('http://' + server_host + ':3000');
 
-var username = random_user();
+console.log('username: ' + user);
+
+global.emit('user', {
+  'username': user,
+  'action': 'connect',
+});
+global.on('user', function(user){
+
+  var user_link = $('ul.user_list a').filter( function(link) { return $(this).text() === user.username }).parent();
+
+  if (user.action == 'connected') {
+    user_link.removeClass('disabled');
+  } else if (user.action == 'disconnected') {
+    user_link.addClass('disabled');
+  }
+  
+});
 
 sockets = {};
 $.getJSON('http://' + server_host + '/api/rooms/',function(data){
@@ -162,22 +178,30 @@ function populate_room_list() {
 }
 
 function populate_user_list() {
-  $.getJSON('http://' + server_host + '/api/users/?format=json', function(data) { 
-    global_user_list = data;
-    data.forEach(function(user) {
-      var user_link = $('<li />', {
-        'class': user.online ? 'user' : 'user disabled',
-        'html': 
-        $('<a />', {
-          'href': '#'
+  $.getJSON('http://' + server_host + '/api/users/?format=json', function(all_users) { 
+
+    $.getJSON('http://' + server_host + ':3000/users', function(connected_users){
+
+      // make sure the current user is included in the list
+      connected_users.push(user);
+      online_users = _.unique(connected_users);
+
+      global_user_list = all_users;
+      all_users.forEach(function(user) {
+        var user_link = $('<li />', {
+          'class': _.contains(online_users, user.username) ? 'user' : 'user disabled',
+          'html': 
+          $('<a />', {
+            'href': '#'
+          })
+          .append( $('<span />', {
+            'class': 'glyphicon glyphicon-user padded-icon'
+            })).append(user.username)
         })
-        .append( $('<span />', {
-          'class': 'glyphicon glyphicon-user padded-icon'
-          })).append(user.username)
-      })
 
-      $('ul.user_list').append(user_link);
+        $('ul.user_list').append(user_link);
 
+      });
     });
   });
 }
