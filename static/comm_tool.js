@@ -293,10 +293,10 @@ $(document).ready(function(){
 		var message_endpoint = 'http://' + server_host + '/api/messagesearch/?search=' + queryString;
 		$.getJSON(message_endpoint, function(data){
 			data.forEach(function(msg){
-				$("#searchResults").append('User: ' + msg.user.username + '<br>' +
-							   'Room: ' + msg.room.roomname + '<br>' +
-							   'Time: ' + msg.time + '<br>' +
-							   'Message: ' + msg.text + '<br>' +
+				$("#searchResults").append('<b>User:</b> ' + msg.user.username + '<br>' +
+							   '<b>Room:</b> ' + msg.room.roomname + '<br>' +
+							   '<b>Time:</b> ' + msg.time + '<br>' +
+							   '<b>Message:</b> ' + msg.text + '<br>' +
 							   '<br>');
 			});
 		});
