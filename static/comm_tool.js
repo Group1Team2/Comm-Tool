@@ -98,10 +98,12 @@ function random_user() {
 }
 
 // Add a new message whenever the user presses the enter key
-$(document).keypress(function(e) {
-    if(e.which == 13) {
-        display();
-    }
+$(document).ready(function(){
+	$("#text").keypress(function(e) {
+	    if(e.which == 13) {
+		display();
+	    }
+	});
 });
 
 
@@ -286,23 +288,19 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	function get_search_results() {
-		$("#search_results").text("");
+		$("searchResults").val("");
 		var queryString = $("#search_box").val();
 		var message_endpoint = 'http://' + server_host + '/api/messagesearch/?search=' + queryString;
 		$.getJSON(message_endpoint, function(data){
 			data.forEach(function(msg){
-				$("#search_results").append('User: ' + msg.user + '<br>' +
-							    'Room: ' + msg.room.roomname + '<br>' +
-							    'Time: ' + msg.time + '<br>' +
-							    'Message: ' + msg.text + '<br>' +
-							    '<br>');
+				$("#searchResults").append('User: ' + msg.user.username + '<br>' +
+							   'Room: ' + msg.room.roomname + '<br>' +
+							   'Time: ' + msg.time + '<br>' +
+							   'Message: ' + msg.text + '<br>' +
+							   '<br>');
 			});
 		});
-		$("#search_results").dialog({
-			title: "Search Results",
-			modal: true,
-			closeOnEscape: true,
-		});
+		$("#searchModal").modal('show');
 		$("#search_box").val("");
 	}
 
@@ -317,6 +315,4 @@ $(document).ready(function(){
 		get_search_results();
 	});
 }); 
-
-
 
