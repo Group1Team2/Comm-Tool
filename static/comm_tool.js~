@@ -1,11 +1,19 @@
- function createTeamFunc(){
-}
 function createteam(){
 $("#myModal").modal('show');
 }
-//show the search bar
+
+//toggle the search bar
 function search_show(){
-$('div#message_search').removeClass('hidden');
+
+  // search bar is hidden
+  if ($('div#message_search').attr('class').indexOf('hidden') == -1) {
+    $('div#message_search').addClass('hidden');
+    $('div.messagecontent').css('padding-top', '70px');
+  } 
+  else {
+    $('div#message_search').removeClass('hidden');
+    $('div.messagecontent').css('padding-top', '130px');
+  }
 }
 
 // global state variables
@@ -14,9 +22,25 @@ global_user_list = [];
 
 var server_host = window.location.hostname;
 var base_url = 'http://' + server_host + ':3000/';
-var socket = io('http://' + server_host + ':3000');
+var global = io('http://' + server_host + ':3000');
 
-var username = random_user();
+console.log('username: ' + user);
+
+global.emit('user', {
+  'username': user,
+  'action': 'connect',
+});
+global.on('user', function(user){
+
+  var user_link = $('ul.user_list a').filter( function(link) { return $(this).text() === user.username }).parent();
+
+  if (user.action == 'connected') {
+    user_link.removeClass('disabled');
+  } else if (user.action == 'disconnected') {
+    user_link.addClass('disabled');
+  }
+  
+});
 
 sockets = {};
 $.getJSON('http://' + server_host + '/api/rooms/',function(data){
@@ -26,7 +50,7 @@ $.getJSON('http://' + server_host + '/api/rooms/',function(data){
       if (room.id != visible_namespace()) {
         increment_badge(room.id);
       }
-      add_message(msg.username + ' : ' + msg.value, room.id); 
+      add_message('<b>' + msg.username + '</b>: ' + msg.value, room.id); 
     });
     sockets[room.id] = socket;
   });
@@ -59,8 +83,9 @@ function visible_namespace() {
 function display() {
   console.log('sending message...');
   var message = {
-    'username': username,
-    'value': $('input#text').val()
+    'username': user,
+    'value': $('input#text').val(),
+    'user_id': user_id
   }
   sockets[visible_namespace()].emit('msg', message);
   $('input#text').val('');
@@ -172,27 +197,57 @@ function populate_room_list() {
 }
 
 function populate_user_list() {
-  $.getJSON('http://' + server_host + '/api/users/?format=json', function(data) { 
-    global_user_list = data;
-    data.forEach(function(user) {
-      var user_link = $('<li />', {
-        'class': user.online ? 'user' : 'user disabled',
-        'html': 
-        $('<a />', {
-          'href': '#'
+  $.getJSON('http://' + server_host + '/api/users/?format=json', function(all_users) { 
+
+    $.getJSON('http://' + server_host + ':3000/users', function(connected_users){
+
+      // make sure the current user is included in the list
+      connected_users.push(user);
+      online_users = _.unique(connected_users);
+
+      global_user_list = all_users;
+      all_users.forEach(function(user) {
+        var user_link = $('<li />', {
+          'class': _.contains(online_users, user.username) ? 'user' : 'user disabled',
+          'html': 
+          $('<a />', {
+            'href': '#'
+          })
+          .append( $('<span />', {
+            'class': 'glyphicon glyphicon-user padded-icon'
+            })).append(user.username)
         })
-        .append( $('<span />', {
-          'class': 'glyphicon glyphicon-user padded-icon'
-          })).append(user.username)
-      })
 
-      $('ul.user_list').append(user_link);
+        $('ul.user_list').append(user_link);
 
+      });
     });
   });
 }
-
-
+//upload file
+function filechoose(){
+$("#inputmodal").modal('show');
+}
+$(document).on('change', '.btn-file :file', function() {
+  var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+  input.trigger('fileselect', [numFiles, label]);
+});
+$(document).ready( function() {
+    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+        
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+        
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+        
+    });
+});
 
 // MAIN
 $(document).ready(function(){
@@ -208,24 +263,58 @@ $(document).ready(function(){
 
   mobile_nav.sidebar();
 
+  $('form#file_upload').submit(function(event){
+    $.ajax({
+      url: 'http://' + server_host + ':3000/upload',
+      type: 'POST',
+      data: new FormData( this ), 
+      processData: false,
+      contentType: false,
+      success: function(file_path){ 
+        var download_url = 'http://' + server_host + '/' + file_path;
+        var display_name = $('input#filename').val();
+        $('input#text').val('<a href="' + download_url + '">' + display_name + '</a>' );
+        display();
+        $('#inputmodal').modal('hide');
+      }
+    });
+    event.preventDefault();
+  });
+
 });
 
-    
 
-/* this cannot work for js
-$(function(){
-        $("#upload").upload({
-            action: "", //upload address
-            fileName: "file",    //filename
-            params: {},         //
-            accept: ".jpg,.png",     //filetypw
-            complete: function () {  //complete upload
-                alert("complete");
-            },
-            submit: function () {   //before submit
-                alert("submit");
-            }
-        });
-    })
-*/
+$(document).ready(function(){
+	function get_search_results() {
+		$("#search_results").text("");
+		var queryString = $("#search_box").val();
+		var message_endpoint = 'http://' + server_host + '/api/messagesearch/?search=' + queryString;
+		$.getJSON(message_endpoint, function(data){
+			data.forEach(function(msg){
+				$("#search_results").append('User: ' + msg.user + '<br>' +
+							    'Room: ' + msg.room.roomname + '<br>' +
+							    'Time: ' + msg.time + '<br>' +
+							    'Message: ' + msg.text + '<br>' +
+							    '<br>');
+			});
+		});
+		$("#search_results").dialog({
+			modal: true,
+		});
+		$("#search_box").val("");
+	}
+
+	$("#search_box").keyup(function (e) {
+  		if (e.which == 13) {
+			get_search_results();
+		}
+		return false;
+	});
+
+	$("#search_button_box").click(function () {
+		get_search_results();
+	});
+}); 
+
+
 

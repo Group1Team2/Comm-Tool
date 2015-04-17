@@ -13,6 +13,8 @@
 
   <!-- jQuery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 
   <!-- underscore -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
@@ -177,9 +179,9 @@
       </div>
 
       <div id="message_search" class="input-group hidden">
-        <input type="text" class="form-control" placeholder="Search messages...">
+        <input id="search_box" type="text" class="form-control" placeholder="Search messages...">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button">
+          <button id="search_button_box" class="btn btn-default" type="button">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
           </button>
         </span>
@@ -260,6 +262,9 @@
 
 
   </div>
+
+<div id="search_results" style="display: none;">
+</div>
 
 </body>
 
