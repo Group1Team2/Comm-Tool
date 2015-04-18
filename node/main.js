@@ -53,7 +53,7 @@ client.get(room_url,function(data,response){
 			// console.log(util.format('someone connected to %s', room.id));
 			socket.on('msg',function(msg){
 				namespaces[room.id].emit('msg', msg);
-				messages.save(room.id, util.format('%s: %s', msg.username, msg.value));
+				messages.save(room.id, util.format('%s: %s', msg.username, msg.value), msg.user_id);
 			});
 
 			socket.on('disconnect',function(){
@@ -66,12 +66,12 @@ client.get(room_url,function(data,response){
 });
 
 var messages = {
-	'save': function(room_id, message) {
+	'save': function(room_id, message, user_id) {
 		message_template = {
 			data: {
 				'at_message': false,
 				'room': util.format('http://localhost/api/rooms/%s/', room_id),
-				'user': util.format('http://localhost/api/users/%s/', 7),
+				'user': util.format('http://localhost/api/users/%s/', user_id),
 				'text': message 
 			},
 			headers: { 'Content-Type': 'application/json' }

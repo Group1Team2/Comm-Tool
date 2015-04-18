@@ -86,7 +86,8 @@ function display() {
   console.log('sending message...');
   var message = {
     'username': user,
-    'value': $('input#text').val()
+    'value': $('input#text').val(),
+    'user_id': user_id
   }
   sockets[visible_namespace()].emit('msg', message);
   $('input#text').val('');
