@@ -1,4 +1,8 @@
-
+ function createTeamFunc(){
+}
+function createteam(){
+$("#myModal").modal('show');
+}
 
   var server_host = window.location.hostname;
 

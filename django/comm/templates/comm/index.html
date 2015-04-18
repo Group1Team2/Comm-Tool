@@ -42,14 +42,15 @@
     <div id="sidebar" class="col-xs-12 col-md-3 col-lg-2 sidebar">
       <h4 class="sidebar_description">Chatting Room</h4>
       <div id="room-list" class="list-group">
-        <a href="#" id="create-room" class="list-group-item room-add">
-          <span class="glyphicon glyphicon-plus padded-icon" aria-hidden="true" onclick="create_team();"></span>Create New Teams
-        </a>
+        <a href="#" class="list-group-item" data-toggle="botton" onclick="createteam()">
+<span class="glyphicon glyphicon-plus padded-icon" aria-hidden="true"></span>Create New Teams
+</a>
       </div>
 
       <h4 class="sidebar_description">Users</h4>
 
       <ul class="user_list">
+
       </ul>
 
       <h4 class="sidebar_description">Quick link to</h4>
@@ -77,10 +78,75 @@
               <span class="glyphicon glyphicon-plus-sign"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
+<!--
               <li><a href="#">upload file</a></li>
-              <li><a href="#"><img src="/static/favicon.ico"></a></li>
+              <li><a href="#"><img src="/static/favicon.ico" style="width:20px;height:20px;"></a></li>
               <li><a href="#">emoticons</a></li>
             </ul>
+<!--try to put emoji here
+<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+              <span class="glyphicon glyphicon-plus-sign"></span>
+            </button>
+<ul class="dropdown-menu" role="menu">
+             
+              <li><a href="#"><img src="/static/favicon.ico" style="width:20px;height:20px;">
+</a></li>
+-->
+              <li><a href="#">Emoticons</a></li>
+<table>
+  <tr>
+    <td><a href="#"><img src="/static/emoji/happy.jpg" style="width:20px;height:20px;"></a></td>
+    <td><a href="#"><img src="/static/emoji/unhappy.jpg" style="width:20px;height:20px;"></a></td>	
+    <td><a href="#"><img src="/static/emoji/terrible.jpg" style="width:20px;height:20px;"></a></td>
+<td><a href="#"><img src="/static/emoji/veryhappy.jpg" style="width:20px;height:20px;"></a></td>
+<td><a href="#"><img src="/static/emoji/angry.jpg" style="width:20px;height:20px;"></a></td>
+    <td><a href="#"><img src="/static/emoji/sweat.jpg" style="width:20px;height:20px;"></a></td>	
+   
+  </tr>
+  <tr>
+    <td><a href="#"><img src="/static/emoji/trick.jpg" style="width:20px;height:20px;"></a></td>
+    <td><a href="#"><img src="/static/emoji/kiss.jpg" style="width:20px;height:20px;"></a></td>	
+    <td><a href="#"><img src="/static/emoji/disappoint.jpg" style="width:20px;height:20px;"></a></td>
+<td><a href="#"><img src="/static/emoji/sick.jpg" style="width:20px;height:20px;"></a></td>
+<td><a href="#"><img src="/static/emoji/laughtear.jpg" style="width:20px;height:20px;"></a></td>
+    <td><a href="#"><img src="/static/emoji/sadtear.jpg" style="width:20px;height:20px;"></a></td>	
+   
+  </tr>
+  <tr>
+    <td><a href="#"><img src="/static/emoji/blink.jpg" style="width:20px;height:20px;"></a></td>
+    <td><a href="#"><img src="/static/emoji/disdain.jpg" style="width:20px;height:20px;"></a></td>	
+    <td><a href="#"><img src="/static/emoji/omg.jpg" style="width:20px;height:20px;"></a></td>
+<td><a href="#"><img src="/static/emoji/embarrased.jpg" style="width:20px;height:20px;"></a></td>
+<td><a href="#"><img src="/static/emoji/sillysmile.jpg" style="width:20px;height:20px;"></a></td>
+    <td><a href="#"><img src="/static/emoji/surprise.jpg" style="width:20px;height:20px;"></a></td>	
+   
+  </tr>
+ <tr>
+    <td><a href="#"><img src="/static/emoji/cry.jpg" style="width:20px;height:20px;"></a></td>
+    <td><a href="#"><img src="/static/emoji/sleepy.jpg" style="width:20px;height:20px;"></a></td>	
+    <td><a href="#"><img src="/static/emoji/hearteye.jpg" style="width:20px;height:20px;"></a></td>
+<td><a href="#"><img src="/static/emoji/flush.jpg" style="width:20px;height:20px;"></a></td>
+<td><a href="#"><img src="/static/emoji/laughnoeye.jpg" style="width:20px;height:20px;"></a></td>
+    <td><a href="#"><img src="/static/emoji/blue.jpg" style="width:20px;height:20px;"></a></td>	
+   
+  </tr>
+<tr>
+    <td><a href="#"><img src="/static/emoji/rat.jpg" style="width:20px;height:20px;"></a></td>
+    <td><a href="#"><img src="/static/emoji/clrat.jpg" style="width:20px;height:20px;"></a></td>	
+    <td><a href="#"><img src="/static/emoji/rabit.jpg" style="width:20px;height:20px;"></a></td>
+<td><a href="#"><img src="/static/emoji/pig.jpg" style="width:20px;height:20px;"></a></td>
+<td><a href="#"><img src="/static/emoji/cat.jpg" style="width:20px;height:20px;"></a></td>
+<td><a href="#"><img src="/static/emoji/monkey.jpg" style="width:20px;height:20px;"></a></td>
+  </tr>
+</table>
+            </ul>
+
+   <!--......-->
+
+
+
+
+
           </span>
         </div>
       </div>
@@ -97,22 +163,16 @@
         </button>
         <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="dropdownMenu1">
           <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="#">Team Profile</a>
+            <a role="menuitem" tabindex="-1" href="#" onclick="search_show()">Search</a>
           </li>
           <li role="presentation">
             <a role="menuitem" tabindex="-1" href="#">File Sharing</a>
           </li>
-          <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="#">Post</a>
-          </li>
-          <li role="presentation" class="divider"></li>
-          <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="#">Help</a>
-          </li>
+          
         </ul>
       </div>
 
-      <div id="message_search" class="input-group">
+      <div id="message_search" class="input-group hidden">
         <input type="text" class="form-control" placeholder="Search messages...">
         <span class="input-group-btn">
           <button class="btn btn-default" type="button">
@@ -145,6 +205,26 @@
         </div>
       </div>
     </div> -->
+
+<div id="myModal" class="modal fade">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+<h4 class="modal-title">Create New Team</h4>
+</div>
+<div class="modal-body">
+<p>Team Name:</p><input id="teamname" type="text" class="form-control" placeholder="Enter a name ...">
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+<button type="button" class="btn btn-primary" onclick="createTeamFunc()">Save</button>
+</div>
+</div>
+</div>
+</div>
+
+
 
   </div>
 

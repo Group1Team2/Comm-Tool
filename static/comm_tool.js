@@ -1,3 +1,23 @@
+ function createTeamFunc(){
+}
+function createteam(){
+$("#myModal").modal('show');
+}
+
+//toggle the search bar
+function search_show(){
+
+  // search bar is hidden
+  if ($('div#message_search').attr('class').indexOf('hidden') == -1) {
+    $('div#message_search').addClass('hidden');
+    $('div.messagecontent').css('padding-top', '70px');
+  } 
+  else {
+    $('div#message_search').removeClass('hidden');
+    $('div.messagecontent').css('padding-top', '130px');
+  }
+}
+
 // global state variables
 global_room_list = [];
 global_user_list = [];
@@ -207,6 +227,7 @@ function populate_user_list() {
 }
 
 
+
 // MAIN
 $(document).ready(function(){
 
@@ -222,3 +243,8 @@ $(document).ready(function(){
   mobile_nav.sidebar();
 
 });
+
+    
+
+
+
