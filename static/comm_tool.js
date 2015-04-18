@@ -85,7 +85,7 @@ function visible_namespace() {
 function display() {
   console.log('sending message...');
   var message = {
-    'username': username,
+    'username': user,
     'value': $('input#text').val()
   }
   sockets[visible_namespace()].emit('msg', message);
