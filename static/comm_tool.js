@@ -272,7 +272,8 @@ $(document).ready(function(){
       contentType: false,
       success: function(file_path){ 
         var download_url = 'http://' + server_host + '/' + file_path;
-        $('input#text').val('<a href="' + download_url + '">Uploaded file</a>' );
+        var display_name = $('input#filename').val();
+        $('input#text').val('<a href="' + download_url + '">' + display_name + '</a>' );
         display();
         $('#inputmodal').modal('hide');
       }
