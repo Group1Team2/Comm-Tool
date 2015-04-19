@@ -1,5 +1,3 @@
- function createTeamFunc(){
-}
 function createteam(){
 $("#myModal").modal('show');
 }
@@ -264,6 +262,23 @@ $(document).ready(function(){
   });
 
   mobile_nav.sidebar();
+
+  $('form#file_upload').submit(function(event){
+    $.ajax({
+      url: 'http://' + server_host + ':3000/upload',
+      type: 'POST',
+      data: new FormData( this ), 
+      processData: false,
+      contentType: false,
+      success: function(file_path){ 
+        var download_url = 'http://' + server_host + '/' + file_path;
+        $('input#text').val('<a href="' + download_url + '">Uploaded file</a>' );
+        display();
+        $('#inputmodal').modal('hide');
+      }
+    });
+    event.preventDefault();
+  });
 
 });
 

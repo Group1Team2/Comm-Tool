@@ -6,6 +6,40 @@ var Client = require('node-rest-client').Client;
 var os = require('os');
 var util = require('util');
 var _ = require('lodash');
+var multer = require('multer');
+var fs = require('fs');
+var crypto = require('crypto');
+
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
+// file upload
+var done = false;
+
+app.use(multer({
+	'dest': 'static/uploads',
+	onFileUploadStart: function(file) {
+		console.log(file.originalname + ' is starting...');
+	},
+	onFileUploadComplete: function(file) {
+		console.log(file.fieldname + ' uploaded to ' + file.path);
+		done = true;
+	}
+}));
+
+app.post('/upload', function(req,res){
+	if (done==true) {
+		var hash = crypto.randomBytes(20).toString('hex');
+		fs.mkdir( util.format('static/uploads/%s', hash), function(){
+			var final_path = util.format('static/uploads/%s/%s', hash, req.files.fileUpload.originalname);
+			fs.rename(req.files.fileUpload.path, final_path);
+			res.send(final_path);
+		});
+	}
+});
 
 var client = new Client();
 
@@ -32,16 +66,12 @@ global_namespace.on('connection', function(socket){
 
 // Make a REST call to get the currently connected users
 
-app.all('/*', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
-
 app.get('/users', function(req,res){
 	res.header
 	res.send(_.unique(users));
 });
+
+
 
 
 var room_url = 'http://localhost/api/rooms/?format=json';
