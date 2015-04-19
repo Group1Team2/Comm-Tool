@@ -50,7 +50,7 @@ $.getJSON('http://' + server_host + '/api/rooms/',function(data){
       if (room.id != visible_namespace()) {
         increment_badge(room.id);
       }
-      add_message(msg.username + ' : ' + msg.value, room.id); 
+      add_message('<b>' + msg.username + '</b>: ' + msg.value, room.id); 
     });
     sockets[room.id] = socket;
   });
