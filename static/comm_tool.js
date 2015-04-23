@@ -1,5 +1,3 @@
- function createTeamFunc(){
-}
 function createteam(){
 $("#myModal").modal('show');
 }
@@ -52,7 +50,7 @@ $.getJSON('http://' + server_host + '/api/rooms/',function(data){
       if (room.id != visible_namespace()) {
         increment_badge(room.id);
       }
-      add_message(msg.username + ' : ' + msg.value, room.id); 
+      add_message('<b>' + msg.username + '</b>: ' + msg.value, room.id); 
     });
     sockets[room.id] = socket;
   });
@@ -264,6 +262,24 @@ $(document).ready(function(){
   });
 
   mobile_nav.sidebar();
+
+  $('form#file_upload').submit(function(event){
+    $.ajax({
+      url: 'http://' + server_host + ':3000/upload',
+      type: 'POST',
+      data: new FormData( this ), 
+      processData: false,
+      contentType: false,
+      success: function(file_path){ 
+        var download_url = 'http://' + server_host + '/' + file_path;
+        var display_name = $('input#filename').val();
+        $('input#text').val('<a href="' + download_url + '">' + display_name + '</a>' );
+        display();
+        $('#inputmodal').modal('hide');
+      }
+    });
+    event.preventDefault();
+  });
 
 });
 
