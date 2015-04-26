@@ -98,10 +98,12 @@ function random_user() {
 }
 
 // Add a new message whenever the user presses the enter key
-$(document).keypress(function(e) {
-    if(e.which == 13) {
-        display();
-    }
+$(document).ready(function(){
+	$("#text").keypress(function(e) {
+	    if(e.which == 13) {
+		display();
+	    }
+	});
 });
 
 
@@ -283,7 +285,34 @@ $(document).ready(function(){
 
 });
 
-    
 
+$(document).ready(function(){
+	function get_search_results() {
+		$("searchResults").val("");
+		var queryString = $("#search_box").val();
+		var message_endpoint = 'http://' + server_host + '/api/messagesearch/?search=' + queryString;
+		$.getJSON(message_endpoint, function(data){
+			data.forEach(function(msg){
+				$("#searchResults").append('<b>User:</b> ' + msg.user.username + '<br>' +
+							   '<b>Room:</b> ' + msg.room.roomname + '<br>' +
+							   '<b>Time:</b> ' + msg.time + '<br>' +
+							   '<b>Message:</b> ' + msg.text + '<br>' +
+							   '<br>');
+			});
+		});
+		$("#searchModal").modal('show');
+		$("#search_box").val("");
+	}
 
+	$("#search_box").keyup(function (e) {
+  		if (e.which == 13) {
+			get_search_results();
+		}
+		return false;
+	});
+
+	$("#search_button_box").click(function () {
+		get_search_results();
+	});
+}); 
 
