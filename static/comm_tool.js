@@ -64,7 +64,15 @@ function increment_badge(room_id){
 }
 
 function add_message(msg, target) {
+
   $('div#room-' + target).append(msg + '<br>');
+  //add emoji to message content
+  var emoji_string=Object.getOwnPropertyNames(emoji_image);
+  for(var i=0;i<emoji_string.length;i++){
+    var each=emoji_string[i];
+    var change=$('div#room-'+target).html();
+  $('div#room-'+target).html(change.replace(each,emoji_image[each]));
+  };
 }
 
 function visible_namespace() {
@@ -75,18 +83,59 @@ function visible_namespace() {
   }
 }
 
-// function create_team(){
-//   $('#add_team_modal').modal('show');
-// }
+function emoji_input(emoji_name){
+  $('input#text').val($('input#text').val()+emoji_name);
+
+}
+
+var emoji_image  ={
+  '::happy::': "<img src='/static/emoji/happy.jpg' style='width:20px;height:20px;'>",
+  '::unhappy::':"<img src='/static/emoji/unhappy.jpg' style='width:20px;height:20px;'>",
+  '::terrible::': "<img src='/static/emoji/terrible.jpg' style='width:20px;height:20px;'>",
+  '::veryhappy::': "<img src='/static/emoji/veryhappy.jpg' style='width:20px;height:20px;'>",
+  '::angry::': "<img src='/static/emoji/angry.jpg' style='width:20px;height:20px;'>",
+  '::sweat::': "<img src='/static/emoji/sweat.jpg' style='width:20px;height:20px;'>",
+  '::trick::': "<img src='/static/emoji/trick.jpg' style='width:20px;height:20px;'>",
+  '::kiss::': "<img src='/static/emoji/kiss.jpg' style='width:20px;height:20px;'>",
+  '::disappoint::': "<img src='/static/emoji/disappoint.jpg' style='width:20px;height:20px;'>",
+  '::sick::': "<img src='/static/emoji/sick.jpg' style='width:20px;height:20px;'>",
+  '::laughtear::': "<img src='/static/emoji/laughtear.jpg' style='width:20px;height:20px;'>",
+  '::sadtear::': "<img src='/static/emoji/sadtear.jpg' style='width:20px;height:20px;'>",
+  '::blink::': "<img src='/static/emoji/blink.jpg' style='width:20px;height:20px;'>",
+  '::disdain::': "<img src='/static/emoji/disdain.jpg' style='width:20px;height:20px;'>",
+  '::omg::': "<img src='/static/emoji/omg.jpg' style='width:20px;height:20px;'>",
+  '::embarrased::': "<img src='/static/emoji/embarrased.jpg' style='width:20px;height:20px;'>",
+  '::sillysmile::': "<img src='/static/emoji/sillysmile.jpg' style='width:20px;height:20px;'>",
+  '::surprise::': "<img src='/static/emoji/surprise.jpg' style='width:20px;height:20px;'>",
+  '::cry::': "<img src='/static/emoji/cry.jpg' style='width:20px;height:20px;'>",
+  '::sleepy::': "<img src='/static/emoji/sleepy.jpg' style='width:20px;height:20px;'>",
+  '::hearteye::': "<img src='/static/emoji/hearteye.jpg' style='width:20px;height:20px;'>",
+  '::flush::': "<img src='/static/emoji/flush.jpg' style='width:20px;height:20px;'>",
+  '::laughnoeye::': "<img src='/static/emoji/laughnoeye.jpg' style='width:20px;height:20px;'>",
+  '::blue::': "<img src='/static/emoji/blue.jpg' style='width:20px;height:20px;'>",
+  '::rat::': "<img src='/static/emoji/rat.jpg' style='width:20px;height:20px;'>",
+  '::clrat::': "<img src='/static/emoji/clrat.jpg' style='width:20px;height:20px;'>",
+  '::rabit::': "<img src='/static/emoji/rabit.jpg' style='width:20px;height:20px;'>",
+  '::pig::': "<img src='/static/emoji/pig.jpg' style='width:20px;height:20px;'>",
+  '::cat::': "<img src='/static/emoji/cat.jpg' style='width:20px;height:20px;'>",
+  '::monkey::': "<img src='/static/emoji/monkey.jpg' style='width:20px;height:20px;'>",
+}
+
+
+
+//var emoji_group={"::happy::", "::unhappy::", "::terrible::"};
 
 // Called when button is clicked
 function display() {
   console.log('sending message...');
+
   var message = {
     'username': user,
     'value': $('input#text').val(),
     'user_id': user_id
   }
+ 
+
   sockets[visible_namespace()].emit('msg', message);
   $('input#text').val('');
 }
